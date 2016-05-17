@@ -3,6 +3,14 @@ An online image dataset sharing and annotating platform.
 
 ## Setup
 
+Install node.js and npm:
+
+    # Mac OSX:
+    go to https://nodejs.org/en/ and download the .pkg.
+
+    # Ubuntu:
+    just install it by apt-get
+
 Clone this repository:
 
     git clone https://github.com/ikafire/OpenObjectMarker
@@ -15,10 +23,12 @@ Install node package dependency:
 
 Install bower components:
 
+    sudo npm install bower -g
     bower install
 
 Build the project:
 
+    sudo npm install gulp -g
     gulp
     
 Open a new terminal and start the server:

@@ -1,3 +1,7 @@
+var mongoose = require('mongoose');
+var Character = require('./models/label');
+var config = require('./config');
+
 var express = require('express');
 var path = require('path');
 var logger = require('morgan');
@@ -22,6 +26,12 @@ app.use(function(req, res) {
     var page = swig.renderFile('views/index.html', { html: html });
     res.send(page);
   });
+});
+
+mongoose.connect(config.database);
+console.log('Success: Connect to mongoDB');
+mongoose.connection.on('error', function() {
+  console.info('Error: Could not connect to MongoDB. Did you forget to run `mongod`?');
 });
 
 app.listen(app.get('port'), function() {
