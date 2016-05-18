@@ -4,7 +4,9 @@ import AddLabelActions from '../actions/AddLabelActions';
 class AddLabelStore {
   constructor() {
     this.bindActions(AddLabelActions);
-    this.label = '';
+    this.user_id = '';
+    this.image_id = '';
+    this.labels = '';
     this.helpBlock = '';
     this.labelValidationState = '';
   }
@@ -17,6 +19,18 @@ class AddLabelStore {
   onAddLabelFail(errorMessage) {
     this.labelValidationState = 'has-error';
     this.helpBlock = errorMessage;
+  }
+
+  onUpdateUser_id(event) {
+    this.user_id = event.target.value;
+    this.labelValidationState = '';
+    this.helpBlock = '';
+  }
+
+  onUpdateImage_id(event) {
+    this.image_id = event.target.value;
+    this.labelValidationState = '';
+    this.helpBlock = '';
   }
 
   onUpdateLabel(event) {
