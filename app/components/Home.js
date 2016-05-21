@@ -15,11 +15,10 @@ class Home extends React.Component {
         
         <hr></hr>
         
+        <p>Open Object Marker is a platform for you to share images and annotate them through collaboration.</p>
+        <p>Upload your images and hope others to annotate them for you!</p>
+        <p>The more you annotate, the more you can download!</p>
         
-        <div className='alert alert-info'>
-            Hello from Home Component
-        </div>
-        <button type='test' className='btn btn-primary'>test</button>
       </div>
     );
   }
