@@ -13,7 +13,10 @@ var Router = require('react-router');
 var routes = require('./app/routes');
 
 var app = express();
+var apis = require('./routes/apis');
 
+
+app.use('/api', apis);
 app.set('port', process.env.PORT || 3000);
 app.use(logger('dev'));
 app.use(bodyParser.json());

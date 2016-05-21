@@ -23,10 +23,11 @@ class AddLabel extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-
+    var user_id = this.state.user_id.trim();
+    var image_id = this.state.image_id.trim();
     var label = this.state.label.trim();
-
-    AddLabelActions.addLabel(label);
+    
+    AddLabelActions.addLabel(user_id, image_id, label);
 
   }
 
@@ -43,6 +44,14 @@ class AddLabel extends React.Component {
                     <label className='control-label'>Label</label>
                     <input type='text' className='form-control' ref='nameTextField' value={this.state.label}
                            onChange={AddLabelActions.updateLabel} autoFocus/>
+                    <span className='help-block'>{this.state.helpBlock}</span>
+                    <label className='control-label'>User_id</label>
+                    <input type='text' className='form-control' ref='nameTextField' value={this.state.user_id}
+                           onChange={AddLabelActions.updateUser_id} autoFocus/>
+                    <span className='help-block'>{this.state.helpBlock}</span>
+                    <label className='control-label'>Image_id</label>
+                    <input type='text' className='form-control' ref='nameTextField' value={this.state.image_id}
+                           onChange={AddLabelActions.updateImage_id} autoFocus/>
                     <span className='help-block'>{this.state.helpBlock}</span>
                   </div>
                   <button type='submit' className='btn btn-primary'>Submit</button>
