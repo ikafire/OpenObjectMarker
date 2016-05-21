@@ -9,7 +9,7 @@ var multer  = require('multer');
 
 var storage = multer.diskStorage({
   destination: function (request, file, callback) {
-    callback(null, 'uploads/');
+    callback(null, 'public/uploads/');
   },
   filename: function (request, file, callback) {
     console.log('uploading');
