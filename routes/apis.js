@@ -3,7 +3,22 @@ var Label = require('../models/label')
 var bodyParser = require('body-parser')
 // API router
 var router = express.Router();
-var jsonParser = bodyParser.json()
+var jsonParser = bodyParser.json();
+var fs = require('fs');
+var multer  = require('multer');
+
+var storage = multer.diskStorage({
+  destination: function (request, file, callback) {
+    callback(null, 'uploads/');
+  },
+  filename: function (request, file, callback) {
+    console.log('uploading');
+    console.log(file);
+    callback(null, file.originalname)
+  }
+});
+
+var upload = multer({storage: storage}).single('images');
 
 router.route('/labels')
 .post(jsonParser, function(req, res){
@@ -26,12 +41,25 @@ router.route('/labels')
 });
 
 router.route('/labels')
-.get(function(req, res) {
+.post(function(req, res) {
     Label.find(function(err, label) {
         if(err)
             res.send(err);
         res.json(label);
     })
+});
+
+router.route('/upload')
+.post(function(req, res) {
+  upload(req, res, function(err) {
+  if(err) {
+    console.log('Error Occured');
+    return;
+  }
+  console.log(req.file);
+  res.end('Your File Uploaded');
+  console.log('Images Uploaded');
+  })
 });
 
 module.exports = router;
