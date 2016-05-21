@@ -75,6 +75,48 @@ nav {
     text-align: center;
 }
 
+hr { 
+    display: block;
+    margin-top: 2em;
+    margin-bottom: 2em;
+    margin-left: auto;
+    margin-right: auto;
+    border-style: inset;
+    border-width: 1px;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+
+li {
+    float: left;
+    border-right:1px solid #bbb;
+}
+
+li:last-child {
+    border-right: none;
+    float: right;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 2em;
+}
+
+li a:hover:not(.active) {
+    background-color: #111;
+    color: white;
+}
+
 footer {
   position: absolute;
   bottom: 0;
@@ -101,6 +143,10 @@ footer .thumb-md {
   &:hover {
     border-color: rgba(255,255,255,.3);
   }
+}
+
+.active {
+    background-color: #4CAF50;
 }
 
 .badge-danger {

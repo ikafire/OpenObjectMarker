@@ -6,13 +6,14 @@ class Home extends React.Component {
       <div className='container'>
       
         <h1> Open Object Marker </h1>
-        <nav>
-          <a href="">Home</a> ||
-          <a href="/add/"> Upload</a> ||
-          <a href=""> Explore</a> ||
-          <a href=""> Login</a>
-        </nav>
+        <ul>
+          <li><a className="active" href="">Home</a></li>
+          <li><a href="/add">Upload</a></li>
+          <li><a href="">Explore</a></li>
+          <li><a href="">Login</a></li>
+        </ul>
         
+        <hr></hr>
         
         
         <div className='alert alert-info'>
