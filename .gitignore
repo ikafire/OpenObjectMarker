@@ -1,5 +1,5 @@
 bin/
 node_modules/
 bower_components/
-public/js/
+public/
 npm-debug.log
