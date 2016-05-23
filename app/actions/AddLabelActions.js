@@ -12,11 +12,12 @@ class AddLabelActions {
       'invalidLabel',
     );
   }
-  
+
   addLabel(user_id, image_id, labels) {
 
-    var data = {"user_id":user_id, "image_id":image_id, "labels":labels}
+    var data = {"user_id":user_id, "image_id":image_id, "labels":labels};
     console.dir(JSON.stringify(data));
+
     $.ajax({
       type: 'POST',
       url: '/api/labels',

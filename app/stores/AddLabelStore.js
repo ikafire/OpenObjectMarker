@@ -4,8 +4,7 @@ import AddLabelActions from '../actions/AddLabelActions';
 class AddLabelStore {
   constructor() {
     this.bindActions(AddLabelActions);
-    this.user_id = '';
-    this.image_id = '';
+    this.image_path = '';
     this.labels = '';
     this.helpBlock = '';
     this.labelValidationState = '';
