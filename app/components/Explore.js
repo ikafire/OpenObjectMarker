@@ -4,7 +4,6 @@ import ExploreActions from '../actions/ExploreActions'
 
 import ImageLoader from 'react-imageloader'
 
-
 class Explore extends React.Component {
     constructor(props) {
     super(props);
@@ -13,12 +12,12 @@ class Explore extends React.Component {
   }
 
   componentDidMount() {
-    this.updateCanvas();
+    //this.updateCanvas();
     ExploreStore.listen(this.onChange);
   }
 
   componentWillUnmount() {
-    this.updateCanvas();
+    //this.updateCanvas();
     ExploreStore.unlisten(this.onChange);
   }
 
@@ -26,16 +25,30 @@ class Explore extends React.Component {
     this.setState(state);
   }
 
-  updateCanvas() {
-        var c=document.getElementById("drawCanvas");
-        const ctx = c.getContext('2d');
-        var topMap = new Image();
-        topMap.src = 'uploads/pika.png';
-        ctx.drawImage(topMap, 0, 0, 300, 300);
-        ctx.strokeStyle="red";
-        ctx.rect(50,50, 200, 200);
-        ctx.stroke();
+  /* update the class and call updateCanvas*/
+  handleSubmit(event) {
+    event.preventDefault();
+    var images = ExploreActions.exploreByClass();
+    this.updateCanvas(images);
+  }
+
+  updateCanvas(images) {
+
+    var c = document.getElementById("drawCanvas");
+    const ctx = c.getContext('2d');
+    c.width = 600;
+    c.height = Math.ceil(images.length / 2) * 300;
+
+    for (var i = 0; i < images.length; i++) {
+      var topMap = new Image();
+      console.log('uploads/' + images[i].image_id);
+      topMap.src = 'uploads/' + images[i].image_id;
+      ctx.drawImage(topMap, (i % 2) * 300 , Math.floor(i / 2) * 300 , 300, 300);
+      ctx.strokeStyle="red";
+      ctx.rect((i % 2) * 300 + 50, Math.floor(i / 2) * 300 + 50, 200, 200);
+      ctx.stroke();
     }
+  }
     
   render() {
     return (
@@ -45,7 +58,10 @@ class Explore extends React.Component {
             <div className='panel panel-default'>
               <div className='panel-heading'>Explore</div>
               <div className='panel-body'>
-                <canvas id="drawCanvas" width={300} height={300}/>
+                <form onSubmit={this.handleSubmit.bind(this)}>
+                  <canvas id="drawCanvas" width={600} height={600}/>
+                  <button type='submit' className='btn btn-primary'>Submit</button>
+                </form>
               </div>
             </div>
           </div>
