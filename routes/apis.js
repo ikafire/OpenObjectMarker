@@ -9,14 +9,17 @@ var multer  = require('multer');
 
 var storage = multer.diskStorage({
   destination: function (request, file, callback) {
+    console.log('1');
     callback(null, 'public/uploads/');
   },
   filename: function (request, file, callback) {
+    console.log('1');
+    console.log(request);
     callback(null, file.originalname)
   }
 });
 
-var upload = multer({storage: storage}).single('images');
+var upload = multer({storage: storage}).single('file');
 
 router.route('/labels')
 .post(jsonParser, function(req, res){
@@ -51,10 +54,8 @@ router.route('/upload')
   // find the image_id in the database
   // If the file is not in the database, update it!
   Label.find({"image_id" : req.file.originalname}, function(err, label) {
-    console.log(label);
     if(err)
       res.send(err);
-    console.log(label.length);
 
     if(typeof label !== 'undefined' && label.length > 0) {
       console.log('File existed!');
