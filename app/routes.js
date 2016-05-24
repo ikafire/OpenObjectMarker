@@ -8,7 +8,7 @@ import Explore from './components/Explore';
 
 export default (
   <Route handler={App}>
-    <Route path='/' handler={Home} />
+    <Route path='/home' handler={Home} />
     <Route path="/add" handler={AddLabel} />
     <Route path="/upload" handler={UploadImg} />
     <Route path="/explore" handler={Explore} />

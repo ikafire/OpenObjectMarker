@@ -7,9 +7,9 @@ class Home extends React.Component {
       
         <h1> Open Object Marker </h1>
         <ul>
-          <li><a className="active" href="">Home</a></li>
-          <li><a href="/add">Upload</a></li>
-          <li><a href="">Explore</a></li>
+          <li><a className="active" href="/home">Home</a></li>
+          <li><a href="/upload">Upload</a></li>
+          <li><a href="/explore">Explore</a></li>
           <li><a href="">Login</a></li>
         </ul>
         
