@@ -1,6 +1,7 @@
 import React from 'react';
 import UploadImgStore from '../stores/UploadImgStore';
 import UploadImgActions from '../actions/UploadImgActions'
+var Dropzone = require('react-dropzone');
 
 class UploadImg extends React.Component {
     constructor(props) {
@@ -19,14 +20,6 @@ class UploadImg extends React.Component {
 
   onChange(state) {
     this.setState(state);
-  }
-
-  handleSubmit(event) {
-    event.preventDefault();
-    var imgFile = this.state.imgFile;
-
-    UploadImgActions.uploadImg(imgFile);
-
   }
 
   render() {
@@ -49,10 +42,13 @@ class UploadImg extends React.Component {
             <div className='panel panel-default'>
               <div className='panel-heading'>Upload Image</div>
               <div className='panel-body'>
-                <form method = 'POST' encType ='multipart/form-data' action = '/api/upload'>
-                   <input type='file' name="images"/>
-                  <button type='submit' className='btn btn-primary'>Submit</button>
+                <link href="dropzone.css" rel="stylesheet"/>
+                <form method="post" action="/api/upload" encType ='multipart/form-data' className="dropzone" id="dropzone-example">
+                <div class="fallback">
+                <input name="file" type="file" multiple />
+                </div>
                 </form>
+                <script src="dropzone.js"></script>
               </div>
             </div>
           </div>

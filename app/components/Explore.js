@@ -2,7 +2,6 @@ import React from 'react';
 import ExploreStore from '../stores/ExploreStore';
 import ExploreActions from '../actions/ExploreActions'
 
-import ImageLoader from 'react-imageloader'
 
 class Explore extends React.Component {
     constructor(props) {
