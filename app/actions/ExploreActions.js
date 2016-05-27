@@ -19,12 +19,8 @@ class ExploreActions {
     });
     console.log(jqXHR.responseJSON);
     return jqXHR.responseJSON;
-    /*.done((data) => {
-        this.actions.exploreSuccess(data);
-      })
-    .fail((jqXhr) => {
-        this.actions.exploreFail(jqXhr.responseJSON.message);
-      });*/
+
+
   }
 }
 

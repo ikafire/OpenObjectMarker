@@ -1,7 +1,6 @@
 import React from 'react';
 import UploadImgStore from '../stores/UploadImgStore';
 import UploadImgActions from '../actions/UploadImgActions'
-var Dropzone = require('react-dropzone');
 
 class UploadImg extends React.Component {
     constructor(props) {

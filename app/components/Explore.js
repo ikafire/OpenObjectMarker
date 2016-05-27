@@ -2,12 +2,12 @@ import React from 'react';
 import ExploreStore from '../stores/ExploreStore';
 import ExploreActions from '../actions/ExploreActions'
 
-
 class Explore extends React.Component {
     constructor(props) {
     super(props);
     this.state = ExploreStore.getState();
     this.onChange = this.onChange.bind(this);
+
   }
 
   componentDidMount() {
@@ -24,32 +24,36 @@ class Explore extends React.Component {
     this.setState(state);
   }
 
-  /* update the class and call updateCanvas*/
-  handleSubmit(event) {
-    event.preventDefault();
-    var images = ExploreActions.exploreByClass();
-    this.updateCanvas(images);
-  }
+  updateCanvas(img) {
 
-  updateCanvas(images) {
-
+    console.log(img.target.src);
     var c = document.getElementById("drawCanvas");
     const ctx = c.getContext('2d');
-    c.width = 600;
-    c.height = Math.ceil(images.length / 2) * 300;
+    var topMap = new Image();
+    topMap.src = img.target.src;
+    ctx.clearRect(0 , 0, 300, 300);
+    ctx.drawImage(topMap, 0 , 0, 300, 300);
+    ctx.strokeStyle="red";
+    ctx.rect(50, 50, 200, 200);
+    ctx.stroke();
 
-    for (var i = 0; i < images.length; i++) {
-      var topMap = new Image();
-      console.log('uploads/' + images[i].image_id);
-      topMap.src = 'uploads/' + images[i].image_id;
-      ctx.drawImage(topMap, (i % 2) * 300 , Math.floor(i / 2) * 300 , 300, 300);
-      ctx.strokeStyle="red";
-      ctx.rect((i % 2) * 300 + 50, Math.floor(i / 2) * 300 + 50, 200, 200);
-      ctx.stroke();
-    }
   }
-    
+
+  renderGallery(){
+
+      var images = [];
+      var data = ExploreActions.exploreByClass();
+
+      for (var i = 0; i < data.length; i++) {
+          var img = "uploads/" + data[i].image_id;
+          images.push(<img src={img}  width={300} height={300} onClick={this.updateCanvas.bind(this.src)}/>);
+       }
+
+      return images;
+  }
+
   render() {
+
     return (
       <div className='container'>
       
@@ -68,10 +72,9 @@ class Explore extends React.Component {
             <div className='panel panel-default'>
               <div className='panel-heading'>Explore</div>
               <div className='panel-body'>
-                <form onSubmit={this.handleSubmit.bind(this)}>
-                  <canvas id="drawCanvas" width={600} height={600}/>
-                  <button type='submit' className='btn btn-primary'>Submit</button>
-                </form>
+              <canvas id="drawCanvas" height={300} width={300}/></div>
+              <div className='panel-body'>
+              {this.renderGallery()}
               </div>
             </div>
           </div>

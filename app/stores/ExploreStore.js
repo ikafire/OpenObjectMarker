@@ -5,12 +5,7 @@ class ExploreStore {
   constructor() {
     this.bindActions(ExploreActions);
     this.explore = '';
-    this.images = '';
-  }
-
-  onExploreSuccess(successMessage) {
-    this.explore = 'has-success';
-    this.images = successMessage;
+    this.images = [];
   }
 }
 
