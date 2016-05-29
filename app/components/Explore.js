@@ -1,6 +1,6 @@
 import React from 'react';
 import ExploreStore from '../stores/ExploreStore';
-import ExploreActions from '../actions/ExploreActions'
+import ExploreActions from '../actions/AddLabelActions';
 
 class Explore extends React.Component {
     constructor(props) {
@@ -42,7 +42,7 @@ class Explore extends React.Component {
   renderGallery(){
 
       var images = [];
-      var data = ExploreActions.exploreByClass();
+      var data = this.state.data;
 
       for (var i = 0; i < data.length; i++) {
           var img = "uploads/" + data[i].image_id;
@@ -50,6 +50,13 @@ class Explore extends React.Component {
        }
 
       return images;
+  }
+
+  handleSubmit(event) {
+    event.preventDefault();
+    var successMessage = ExploreActions.exploreByClass();
+    this.state.data = successMessage;
+    this.forceUpdate();
   }
 
   render() {
@@ -72,7 +79,12 @@ class Explore extends React.Component {
             <div className='panel panel-default'>
               <div className='panel-heading'>Explore</div>
               <div className='panel-body'>
-              <canvas id="drawCanvas" height={300} width={300}/></div>
+              <form onSubmit={this.handleSubmit.bind(this)}>
+              <button type='submit' className='btn btn-primary' onclick={this.handleSubmit.bind(this)}>Submit</button>
+              </form>
+              </div>
+              <div className='panel-body'>
+              <canvas id="drawCanvas" height={300} width={300}/> </div>
               <div className='panel-body'>
               {this.renderGallery()}
               </div>

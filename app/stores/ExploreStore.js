@@ -5,7 +5,7 @@ class ExploreStore {
   constructor() {
     this.bindActions(ExploreActions);
     this.explore = '';
-    this.images = [];
+    this.data = '';
   }
 }
 

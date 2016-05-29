@@ -9,7 +9,7 @@ class ExploreActions {
     );
   }
 
-  exploreByClass(image_id) {
+  exploreByClass() {
 
     var jqXHR = $.ajax({
       type: 'GET',
@@ -17,10 +17,7 @@ class ExploreActions {
       contentType: "application/json",
       async: false,
     });
-    console.log(jqXHR.responseJSON);
-    return jqXHR.responseJSON;
-
-
+    return data.responseJSON;
   }
 }
 

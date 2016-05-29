@@ -1,6 +1,6 @@
 import React from 'react';
 import UploadImgStore from '../stores/UploadImgStore';
-import UploadImgActions from '../actions/UploadImgActions'
+import UploadImgActions from '../actions/UploadImgActions';
 
 class UploadImg extends React.Component {
     constructor(props) {
