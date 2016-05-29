@@ -17,7 +17,7 @@ class ExploreActions {
       contentType: "application/json",
       async: false,
     });
-    return data.responseJSON;
+    return jqXHR.responseJSON;
   }
 }
 
