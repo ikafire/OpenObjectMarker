@@ -5,3 +5,4 @@ public/css
 public/js
 public/uploads
 npm-debug.log
+.DS_Store
