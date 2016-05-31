@@ -1,24 +1,8 @@
 import React from 'react';
-import UploadImgStore from '../stores/UploadImgStore';
-import UploadImgActions from '../actions/UploadImgActions';
 
 class UploadImg extends React.Component {
     constructor(props) {
     super(props);
-    this.state = UploadImgStore.getState();
-    this.onChange = this.onChange.bind(this);
-  }
-
-  componentDidMount() {
-    UploadImgStore.listen(this.onChange);
-  }
-
-  componentWillUnmount() {
-    UploadImgStore.unlisten(this.onChange);
-  }
-
-  onChange(state) {
-    this.setState(state);
   }
 
   render() {
