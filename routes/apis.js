@@ -85,13 +85,14 @@ router.route('/explore')
 router.route('/login')
 .post(jsonParser, function(req, res) {
 
-    AM.manualLogin(req.body.user_name, req.body.password, function(e, o){
+    AM.manualLogin(req.body.username, req.body.password, function(e, o){
 			if (!o){
                 // Send the error message.
 				res.status(400).send(e);
 			}	else{
                 // Success
-				req.session.user = o;
+                //console.log(req.session);
+				//req.session.username = o;
 				res.status(200).send(o);
 			}
 		});
@@ -102,8 +103,8 @@ router.route('/signUp')
 .post(jsonParser, function(req, res) {
 
     AM.addNewAccount({
-			user : req.body.user_name,
-            pass : req.body.password
+			username : req.body.username,
+            password : req.body.password
 		}, function(e){
 			if (e){
 				res.status(400).send(e);

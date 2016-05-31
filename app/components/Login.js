@@ -58,6 +58,9 @@ class Login extends React.Component {
                       onChange={LoginActions.updatePassword} autoFocus/>
               </div>
               <button type='submit' className='btn btn-primary'>Login</button>
+              <a href="/signup">
+                <button type='button' className='btn btn-primary'>Signup</button>
+              </a>
             </form>
             </div>
           </div>

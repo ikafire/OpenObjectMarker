@@ -19,12 +19,12 @@ class LoginStore {
 
   onUpdateUsername(event) {
     this.username = event.target.value;
-    this.labelValidationState = '';
+    this.loginValidationState = '';
   }
 
   onUpdatePassword(event) {
     this.password = event.target.value;
-    this.labelValidationState = '';
+    this.loginValidationState = '';
   }
 
   onInvalidLabel() {

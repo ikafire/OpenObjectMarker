@@ -5,20 +5,26 @@ var mongoose = require('mongoose');
 mongoose.createConnection('mongodb://localhost/Login');
 
 var loginSchema = new mongoose.Schema({
-    user       : String,
+    username       : String,
     password   : String
 });
 
-exports.manualLogin = function(user, pass, callback)
+var loginDB = mongoose.model('Login', loginSchema);
+
+exports.manualLogin = function(username, password, callback)
 {
-	loginSchema.findOne({user:user}, function(e, o) {
+	console.log(username);
+	loginDB.findOne({username:username}, function(e, o) {
 		if (o == null){
+			console.log('user-not-found');
 			callback('user-not-found');
 		}	else{
-			validatePassword(pass, o.pass, function(err, res) {
+			validatePassword(password, o.password, function(err, res) {
 				if (res){
+					console.log('password');
 					callback(null, o);
 				}	else{
+					console.log('invalid-password');
 					callback('invalid-password');
 				}
 			});
@@ -31,15 +37,16 @@ exports.manualLogin = function(user, pass, callback)
 
 exports.addNewAccount = function(newData, callback)
 {
-	loginSchema.findOne({user:newData.user}, function(e, o) {
+	loginDB.findOne({username:newData.username}, function(e, o) {
 		if (o){
 			callback('username-taken');
 		}	else{
-			saltAndHash(newData.pass, function(hash){
-				newData.pass = hash;
+			saltAndHash(newData.password, function(hash){
+				newData.password = hash;
 				// append date stamp when record was created //
 				newData.date = moment().format('MMMM Do YYYY, h:mm:ss a');
-				accounts.insert(newData, {safe: true}, callback);
+				console.log(newData);
+				loginDB.collection.insert(newData, {safe: true}, callback);
 			});
 		}
 	});
@@ -70,6 +77,8 @@ var saltAndHash = function(pass, callback)
 
 var validatePassword = function(plainPass, hashedPass, callback)
 {
+	console.log(plainPass);
+	console.log(hashedPass);
 	var salt = hashedPass.substr(0, 10);
 	var validHash = salt + md5(plainPass + salt);
 	callback(null, hashedPass === validHash);
