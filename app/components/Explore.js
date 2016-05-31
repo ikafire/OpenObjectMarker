@@ -7,6 +7,7 @@ class Explore extends React.Component {
     super(props);
     this.state = ExploreStore.getState();
     this.onChange = this.onChange.bind(this);
+    this.Label = [];
 
   }
 
@@ -24,18 +25,26 @@ class Explore extends React.Component {
     this.setState(state);
   }
 
+  doMouseDown(event) {
+    
+  }
+  
   updateCanvas(img) {
 
     console.log(img.target.src);
     var c = document.getElementById("drawCanvas");
+    //c.addEventListener("mousedown", this.doMouseDown, false);
+    //c.addEventListener("mouseup", this.doMouseDown, false);
+    //c.addEventListener("mouse", this.doMouseDown, false);
     const ctx = c.getContext('2d');
     var topMap = new Image();
     topMap.src = img.target.src;
     ctx.clearRect(0 , 0, 300, 300);
     ctx.drawImage(topMap, 0 , 0, 300, 300);
+    /*
     ctx.strokeStyle="red";
     ctx.rect(50, 50, 200, 200);
-    ctx.stroke();
+    ctx.stroke();*/
 
   }
 

@@ -6,6 +6,7 @@ var router = express.Router();
 var jsonParser = bodyParser.json();
 var fs = require('fs');
 var multer  = require('multer');
+var AM = require('../modules/account-manager');
 
 var storage = multer.diskStorage({
   destination: function (request, file, callback) {
@@ -20,34 +21,6 @@ var storage = multer.diskStorage({
 });
 
 var upload = multer({storage: storage}).single('file');
-
-router.route('/labels')
-.post(jsonParser, function(req, res){
-    
-    var label = new Label();
-    
-    console.dir(req.body);
-    console.log('id ' + req.body.user_id);
-    label.user_id = req.body.user_id;
-    label.image_id = req.body.image_id;
-    label.labels = req.body.labels;
-    
-    label.save(function(err){
-        if (err)
-            res.send(err);
-        res.json({message : 'Label created!'});
-    })
-});
-
-router.route('/labels')
-.get(function(req, res) {
-    Label.find(function(err, label) {
-        if(err)
-            res.send(err);
-        res.json(label);
-    })
-});
-
 
 router.route('/upload')
 .post(upload, function(req, res) {
@@ -105,6 +78,39 @@ router.route('/explore')
             res.send(err);
         return res.send('hi');
     })
+});
+
+
+/* Login process */
+router.route('/login')
+.post(jsonParser, function(req, res) {
+
+    AM.manualLogin(req.body.user_name, req.body.password, function(e, o){
+			if (!o){
+                // Send the error message.
+				res.status(400).send(e);
+			}	else{
+                // Success
+				req.session.user = o;
+				res.status(200).send(o);
+			}
+		});
+});
+
+/* Login process */
+router.route('/signUp')
+.post(jsonParser, function(req, res) {
+
+    AM.addNewAccount({
+			user : req.body.user_name,
+            pass : req.body.password
+		}, function(e){
+			if (e){
+				res.status(400).send(e);
+			}	else{
+				res.status(200).send('ok');
+			}
+		});
 });
 
 module.exports = router;
