@@ -1,4 +1,6 @@
 import React from 'react';
+import LoginStore from '../stores/LoginStore';
+import LoginActions from '../actions/LoginActions';
 
 class Login extends React.Component {
   render() {

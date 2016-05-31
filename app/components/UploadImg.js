@@ -21,18 +21,16 @@ class UploadImg extends React.Component {
       
       
         <div className='row flipInX animated'>
-          <div className='col-sm-8'>
-            <div className='panel panel-default'>
-              <div className='panel-heading'>Upload Image</div>
-              <div className='panel-body'>
-                <link href="dropzone.css" rel="stylesheet"/>
-                <form method="post" action="/api/upload" encType ='multipart/form-data' className="dropzone" id="dropzone-example">
-                <div class="fallback">
-                <input name="file" type="file" multiple />
-                </div>
-                </form>
-                <script src="dropzone.js"></script>
+          <div className='panel panel-default'>
+            <div className='panel-heading'>Upload Your Image!</div>
+            <div className='panel-body'>
+              <link href="dropzone.css" rel="stylesheet"/>
+              <form method="post" action="/api/upload" encType ='multipart/form-data' className="dropzone" id="dropzone-example">
+              <div class="fallback">
+              <input name="file" type="file" multiple />
               </div>
+              </form>
+              <script src="dropzone.js"></script>
             </div>
           </div>
         </div>

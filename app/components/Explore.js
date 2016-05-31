@@ -75,19 +75,17 @@ class Explore extends React.Component {
         <hr></hr>
       
         <div className='row flipInX animated'>
-          <div className='col-sm-8'>
-            <div className='panel panel-default'>
-              <div className='panel-heading'>Explore</div>
-              <div className='panel-body'>
-              <form onSubmit={this.handleSubmit.bind(this)}>
-              <button type='submit' className='btn btn-primary' onclick={this.handleSubmit.bind(this)}>Submit</button>
-              </form>
-              </div>
-              <div className='panel-body'>
-              <canvas id="drawCanvas" height={300} width={300}/> </div>
-              <div className='panel-body'>
-              {this.renderGallery()}
-              </div>
+          <div className='panel panel-default'>
+            <div className='panel-heading'>Explore</div>
+            <div className='panel-body'>
+            <form onSubmit={this.handleSubmit.bind(this)}>
+            <button type='submit' className='btn btn-primary' onclick={this.handleSubmit.bind(this)}>Submit</button>
+            </form>
+            </div>
+            <div className='panel-body'>
+            <canvas id="drawCanvas" height={300} width={300}/> </div>
+            <div className='panel-body'>
+            {this.renderGallery()}
             </div>
           </div>
         </div>
