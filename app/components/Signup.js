@@ -57,7 +57,7 @@ class Signup extends React.Component {
                       onChange={SignupActions.updateName} autoFocus/>
               <label className='control-label'>E-mail</label>
               <input type='text' className='form-control' ref='nameTextField' value={this.state.email}
-                      onChange={SignupActions.updateemail} autoFocus/>
+                      onChange={SignupActions.updateEmail} autoFocus/>
               <label className='control-label'>Username</label>
               <input type='text' className='form-control' ref='nameTextField' value={this.state.username}
                       onChange={SignupActions.updateUsername} autoFocus/>
