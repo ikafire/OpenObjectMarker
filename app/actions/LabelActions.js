@@ -13,7 +13,7 @@ class LabelActions {
   labelByClass() {
     var jqXHR = $.ajax({
       type: 'GET',
-      url: '/api/label',
+      url: '/api/explore',
       contentType: "application/json",
       async: false,
     });

@@ -6,6 +6,13 @@ class LabelStore {
     this.bindActions(LabelActions);
     this.label = '';
     this.data = '';
+    this.Labels = [];
+    this.LabelingImg = "";
+    this.toShow = '';
+    this.drag = false;
+    this.rect = {};  // Now labeling
+    this.offsetLeft = 0;
+    this.offsetTop = 0;
   }
 }
 
