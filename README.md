@@ -36,4 +36,4 @@ Open a new terminal and start the server:
     cd OpenObjectMarker
     npm start
 
-Open your browser and access http://localhost:3000/
+Open your browser and access http://localhost:3000/home

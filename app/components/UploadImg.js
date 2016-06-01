@@ -12,6 +12,7 @@ class UploadImg extends React.Component {
         <ul>
           <li><a href="/home">Home</a></li>
           <li><a className="active" href="/upload">Upload</a></li>
+          <li><a href="/label">Label</a></li>
           <li><a href="/explore">Explore</a></li>
           <li><a href="/login">Login</a></li>
         </ul>

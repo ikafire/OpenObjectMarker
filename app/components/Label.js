@@ -1,11 +1,11 @@
 import React from 'react';
-import ExploreStore from '../stores/ExploreStore';
-import ExploreActions from '../actions/ExploreActions';
+import LabelStore from '../stores/LabelStore';
+import LabelActions from '../actions/LabelActions';
 
-class Explore extends React.Component {
+class Label extends React.Component {
     constructor(props) {
     super(props);
-    this.state = ExploreStore.getState();
+    this.state = LabelStore.getState();
     this.onChange = this.onChange.bind(this);
     this.Label = [];
 
@@ -13,12 +13,12 @@ class Explore extends React.Component {
 
   componentDidMount() {
     //this.updateCanvas();
-    ExploreStore.listen(this.onChange);
+    LabelStore.listen(this.onChange);
   }
 
   componentWillUnmount() {
     //this.updateCanvas();
-    ExploreStore.unlisten(this.onChange);
+    LabelStore.unlisten(this.onChange);
   }
 
   onChange(state) {
@@ -63,7 +63,7 @@ class Explore extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    var successMessage = ExploreActions.exploreByClass();
+    var successMessage = LabelActions.labelByClass();
     this.state.data = successMessage;
     this.forceUpdate();
   }
@@ -77,8 +77,8 @@ class Explore extends React.Component {
         <ul>
           <li><a href="/home">Home</a></li>
           <li><a href="/upload">Upload</a></li>
-          <li><a href="/label">Label</a></li>
-          <li><a className="active" href="/explore">Explore</a></li>
+          <li><a className="active" href="/label">Label</a></li>
+          <li><a href="/explore">Explore</a></li>
           <li><a href="/login">Login</a></li>
         </ul>
         
@@ -86,7 +86,7 @@ class Explore extends React.Component {
       
         <div className='row flipInX animated'>
           <div className='panel panel-default'>
-            <div className='panel-heading'>Explore</div>
+            <div className='panel-heading'>Label</div>
             <div className='panel-body'>
             <form onSubmit={this.handleSubmit.bind(this)}>
             <button type='submit' className='btn btn-primary' onclick={this.handleSubmit.bind(this)}>Submit</button>
@@ -104,4 +104,4 @@ class Explore extends React.Component {
   }
 }
 
-export default Explore;
+export default Label;

@@ -9,6 +9,7 @@ class Home extends React.Component {
         <ul>
           <li><a className="active" href="/home">Home</a></li>
           <li><a href="/upload">Upload</a></li>
+          <li><a href="/label">Label</a></li>
           <li><a href="/explore">Explore</a></li>
           <li><a href="/login">Login</a></li>
         </ul>
