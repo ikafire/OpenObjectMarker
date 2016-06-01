@@ -6,6 +6,7 @@ class LabelStore {
     this.bindActions(LabelActions);
     this.label = '';
     this.data = '';
+    this.class = [];
   }
 }
 
