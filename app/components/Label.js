@@ -100,12 +100,33 @@ class Label extends React.Component {
 
       return images;
   }
+  
+  renderClass() {
+    var options = [];
+    var data = this.state.class;
+    
+    for (var i = 0; i < data.length; i++) {
+      var option = data[i];
+      options.push(<option value={option}>{option}</option>);
+    }
+    
+    return options;
+  }
 
   handleSubmit(event) {
     event.preventDefault();
     var successMessage = LabelActions.labelByClass();
     this.state.data = successMessage;
     this.forceUpdate();
+  }
+  
+  handleSelect(event) {
+    event.preventDefault();
+    var successMessage = LabelActions.labelByClass();
+    this.state.data = successMessage;
+    this.forceUpdate();
+    var selectClass = document.getElementById("selectClass");
+    var selectedValue = selectClass.options[selectClass.selectedIndex].value;
   }
 
   render() {
@@ -128,9 +149,15 @@ class Label extends React.Component {
           <div className='panel panel-default'>
             <div className='panel-heading'>Label</div>
             <div className='panel-body'>
-            <form onSubmit={this.handleSubmit.bind(this)}>
-            <button type='submit' className='btn btn-primary' onclick={this.handleSubmit.bind(this)}>Submit</button>
-            </form>
+              <form onSubmit={this.handleSubmit.bind(this)}>
+                <div>
+                  <canvas id="drawCanvas" height={432} width={768}/>
+                  <select id="selectClass" onChange={this.handleSelect.bind(this)}>
+                    {this.renderClass()}
+                  </select>
+                </div>
+                <button type='submit' className='btn btn-primary' onclick={this.handleSubmit.bind(this)}>Submit</button>
+              </form>
             </div>
             <div className='scratcher'>
             <canvas id="drawCanvas" width={300} height={300}/>
