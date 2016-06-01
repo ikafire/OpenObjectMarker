@@ -111,7 +111,7 @@ class Label extends React.Component {
             <div className='panel-body'>
               <form onSubmit={this.handleSubmit.bind(this)}>
                 <div>
-                  <canvas id="drawCanvas" height={300} width={300}/>
+                  <canvas id="drawCanvas" height={432} width={768}/>
                   <select id="selectClass" onChange={this.handleSelect.bind(this)}>
                     {this.renderClass()}
                   </select>
