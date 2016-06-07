@@ -91,8 +91,10 @@ router.route('/login')
 				res.status(400).send(e);
 			}	else{
                 // Success
-                //console.log(req.session);
+                console.log(req.session);
 				//req.session.username = o;
+                //req.session.save();
+                //console.log("# Session value set "+ req.session.username);
 				res.status(200).send(o);
 			}
 		});
