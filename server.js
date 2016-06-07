@@ -15,10 +15,6 @@ var routes = require('./app/routes');
 var app = express();
 var apis = require('./routes/apis');
 
-var cookieParser = require('cookie-parser');
-var session = require('express-session');
-var MongoStore = require('connect-mongo')(session);
-
 
 app.use('/api', apis);
 app.set('port', process.env.PORT || 3000);
@@ -36,21 +32,11 @@ app.use(function(req, res) {
 });
 
 mongoose.connect('mongodb://192.168.11.100/mongo');
-var db = mongoose.connection;
-mongoose.set('debug', true);
 console.log('Success: Connect to mongoDB');
-db.on('error', function() {
+mongoose.connection.on('error', function() {
   console.info('Error: Could not connect to MongoDB. Did you forget to run `mongod`?');
 });
 
 app.listen(app.get('port'), function() {
   console.log('Express server listening on port ' + app.get('port'));
 });
-
-app.use(cookieParser());
-app.use(session({
-  secret: 'supersecretstring12345!',
-  saveUninitialized: true,
-  resave: true,
-  store: new MongoStore({ mongooseConnection: db })
-}))
