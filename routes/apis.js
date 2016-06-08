@@ -7,7 +7,19 @@ var jsonParser = bodyParser.json();
 var fs = require('fs');
 var multer  = require('multer');
 var AM = require('../modules/account-manager');
+var mongoose = require('mongoose');
+var cookieParser = require('cookie-parser');
+var session = require('express-session');
+var MongoStore = require('connect-mongo')(session);
 
+mongoose.createConnection('mongodb://192.168.11.100/session');
+var db = mongoose.connection;
+var login_session = session({
+  secret: 'supersecretstring12345!',
+  saveUninitialized: true,
+  resave: true,
+  store: new MongoStore({ mongooseConnection: db })
+});
 var storage = multer.diskStorage({
   destination: function (request, file, callback) {
     callback(null, 'public/uploads/');
@@ -99,7 +111,7 @@ router.route('/explore')
 
 /* Login process */
 router.route('/login')
-.post(jsonParser, function(req, res) {
+.post(jsonParser, login_session, function(req, res) {
 
     AM.manualLogin(req.body.username, req.body.password, function(e, o){
 			if (!o){
@@ -107,8 +119,10 @@ router.route('/login')
 				res.status(400).send(e);
 			}	else{
                 // Success
-                //console.log(req.session);
+                console.log(req.session);
 				//req.session.username = o;
+                //req.session.save();
+                //console.log("# Session value set "+ req.session.username);
 				res.status(200).send(o);
 			}
 		});
