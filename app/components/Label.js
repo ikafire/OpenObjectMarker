@@ -7,7 +7,6 @@ class Label extends React.Component {
     super(props);
     this.state = LabelStore.getState();
     this.onChange = this.onChange.bind(this);
-
   }
 
   componentDidMount() {
@@ -25,35 +24,51 @@ class Label extends React.Component {
   }
 
   mouseDown(e) {
-      this.state.rect.startX = e.layerX - this.state.offsetLeft;
-      this.state.rect.startY = e.layerY - this.state.offsetTop;
-      console.log(this.state.ctx.offsetLeft);
-      console.log(this.state.rect.startY);
-      this.state.drag = true;
-    }
+    this.state.rect.startX = e.layerX - this.state.offsetLeft;
+    this.state.rect.startY = e.layerY - this.state.offsetTop;
+    this.state.drag = true;
+  }
 
   mouseUp(e) {
-      //this.state.Labels.push(this.state.rect);
+
+      // Because "push" in javascript is passing by reference,
+      // we create a new object to push here.
+      var storeLabel =  {};
+      storeLabel.startX = this.state.rect.startX;
+      storeLabel.startY = this.state.rect.startY;
+      storeLabel.w = this.state.rect.w;
+      storeLabel.h = this.state.rect.h;
+      storeLabel.class = this.state.selectedValue;
+
+      this.state.Labels.push(storeLabel);
+      //console.log(this.state.Labels);
       this.state.drag = false;
     }
 
   mouseMove(e) {
-
     if (this.state.drag) {
       this.state.rect.w = (e.layerX - this.state.offsetLeft) - this.state.rect.startX;
       this.state.rect.h = (e.layerY - this.state.offsetTop) - this.state.rect.startY;
-
       this.drawRec();
     }
   }
-    
+
   drawRec() {
-    this.state.ctx.clearRect(0 , 0, 300, 300);
+
     var img = new Image();
     img.src = this.state.LabelingImg;
-    this.state.ctx.drawImage(img, 0 , 0, 300, 300);
-    this.state.ctx.rect(this.state.rect.startX, this.state.rect.startY, this.state.rect.w, this.state.rect.h);
+    this.state.ctx.beginPath();
+    this.state.ctx.fillStyle="white";
+    this.state.ctx.fillRect(0,0,1280,720);
+
     this.state.ctx.stroke();
+    this.state.ctx.drawImage(img, 480 , 210, 300, 300);
+
+    for (var i = 0; i < this.state.Labels.length; i++) {
+      this.state.ctx.strokeRect((this.state.Labels)[i].startX, (this.state.Labels)[i].startY, (this.state.Labels)[i].w, (this.state.Labels)[i].h);
+    }
+    this.state.ctx.strokeRect(this.state.rect.startX, this.state.rect.startY, this.state.rect.w, this.state.rect.h);
+
   }
 
   updateCanvas(img) {
@@ -74,59 +89,56 @@ class Label extends React.Component {
     this.state.ctx = ctx;
     var topMap = new Image();
     topMap.src = img.target.src;
-    ctx.drawImage(topMap, 0 , 0, 300, 300);
+    ctx.drawImage(topMap, 480 , 210, 300, 300);
     ctx.strokeStyle="red";
 
   }
 
-  renderImg(){
-    var img = "";
-    if (this.state.LabelingImg) {
-      console.log(this.state.LabelingImg);
-      img = <img src={this.state.LabelingImg}  width={300} height={300}/>;
-    }
-
-    return img
-  }
   renderGallery(){
 
-      var images = [];
-      var data = this.state.data;
+    var images = [];
+    var data = this.state.data;
 
-      for (var i = 0; i < data.length; i++) {
-          var img = "uploads/" + data[i].image_id;
-          images.push(<img src={img}  width={300} height={300} onClick={this.updateCanvas.bind(this)}/>);
-       }
+    for (var i = 0; i < data.length; i++) {
+      var img = "uploads/" + data[i].image_id;
+      images.push(<img src={img}  width={300} height={300} onClick={this.updateCanvas.bind(this)}/>);
+    }
 
-      return images;
+    return images;
   }
-  
+
   renderClass() {
     var options = [];
     var data = this.state.class;
-    
+
     for (var i = 0; i < data.length; i++) {
       var option = data[i];
       options.push(<option value={option}>{option}</option>);
     }
-    
+
     return options;
   }
 
   handleSubmit(event) {
     event.preventDefault();
     var successMessage = LabelActions.labelByClass();
+    console.log(successMessage);
     this.state.data = successMessage;
     this.forceUpdate();
   }
-  
+
   handleSelect(event) {
     event.preventDefault();
     var successMessage = LabelActions.labelByClass();
     this.state.data = successMessage;
     this.forceUpdate();
     var selectClass = document.getElementById("selectClass");
-    var selectedValue = selectClass.options[selectClass.selectedIndex].value;
+    this.state.selectedValue = selectClass.options[selectClass.selectedIndex].value;
+    console.log(this.state.selectedValue);
+  }
+  
+  saveLabels(event) {
+    LabelActions.save(this.state.LabelingImg, this.state.Labels);
   }
 
   render() {
@@ -149,19 +161,14 @@ class Label extends React.Component {
           <div className='panel panel-default'>
             <div className='panel-heading'>Label</div>
             <div className='panel-body'>
-              <form onSubmit={this.handleSubmit.bind(this)}>
-                <div>
-                  <canvas id="drawCanvas" height={432} width={768}/>
-                  <select id="selectClass" onChange={this.handleSelect.bind(this)}>
-                    {this.renderClass()}
-                  </select>
-                </div>
-                <button type='submit' className='btn btn-primary' onclick={this.handleSubmit.bind(this)}>Submit</button>
-              </form>
-            </div>
-            <div className='scratcher'>
-            <canvas id="drawCanvas" width={300} height={300}/>
-            {this.renderImg()}
+              <div>
+                <canvas id="drawCanvas" height={720} width={1280}/>
+                <select id="selectClass" onChange={this.handleSelect.bind(this)}>
+                  {this.renderClass()}
+                </select>
+              </div>
+              <button type='submit' className='btn btn-primary' onClick={this.handleSubmit.bind(this)}>Submit</button>
+              <button type='save' className='btn btn-primary' onClick={this.saveLabels.bind(this)}>Save</button>
             </div>
             <div className='panel-body'>
             {this.renderGallery()}
