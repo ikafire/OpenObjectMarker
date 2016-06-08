@@ -9,7 +9,7 @@ class ExploreActions {
     );
   }
 
-  /*  Call the RESTful Api to get the images path in mongodb. */
+  /*  Call the RESTful GET Api to get the images path in mongodb. */
   exploreByClass() {
     var jqXHR = $.ajax({
       type: 'GET',
