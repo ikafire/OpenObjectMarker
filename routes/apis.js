@@ -10,11 +10,9 @@ var AM = require('../modules/account-manager');
 
 var storage = multer.diskStorage({
   destination: function (request, file, callback) {
-    console.log('1');
     callback(null, 'public/uploads/');
   },
   filename: function (request, file, callback) {
-    console.log('1');
     console.log(request);
     callback(null, file.originalname)
   }
@@ -57,6 +55,24 @@ router.route('/explore')
             res.send(err);
         res.json(label);
     })
+});
+
+/* Save the labels */
+router.route('/saveLabels')
+.post(jsonParser, function(req, res) {
+
+    console.log(req.body.Labels);
+    var str = req.body.img.split('/');
+    var imgName = str[str.length - 1];
+    console.log({"image_id" : imgName});
+    Label.findOneAndUpdate({"image_id" : imgName}, {
+        "user_id" : "",
+        "image_id" : imgName,
+        "labels" : req.body.Labels
+    }, {upsert: true, new: true},
+    function(err, numberAffected, raw){
+        console.log(err, numberAffected, raw)
+    });
 });
 
 router.route('/upload')
@@ -113,5 +129,7 @@ router.route('/signUp')
 			}
 		});
 });
+
+
 
 module.exports = router;
