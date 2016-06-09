@@ -17,18 +17,14 @@ class LoginActions {
     var data = {"username":username, "password":password};
     console.dir(JSON.stringify(data));
 
-    $.ajax({
+    var jqXHR = $.ajax({
       type: 'POST',
       url: '/api/login',
       data: JSON.stringify(data),
-      contentType: "application/json"
-    })
-      .done((data) => {
-        this.actions.loginSuccess(data.message);
-      })
-      .fail((jqXhr) => {
-        this.actions.loginFail(jqXhr.responseJSON.message);
-      });
+      contentType: "application/json",
+      async: false,
+    });
+    return jqXHR.responseJSON;
   }
 }
 

@@ -12,7 +12,7 @@ var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
 
-mongoose.createConnection('mongodb://192.168.11.100/session');
+mongoose.createConnection('mongodb://localhost/session');
 var db = mongoose.connection;
 var login_session = session({
   secret: 'supersecretstring12345!',
@@ -119,11 +119,11 @@ router.route('/login')
 				res.status(400).send(e);
 			}	else{
                 // Success
-                console.log(req.session);
+                //console.log(req.session);
 				//req.session.username = o;
                 //req.session.save();
-                //console.log("# Session value set "+ req.session.username);
-				res.status(200).send(o);
+                //console.log("# Session value set "+ req.session);
+				res.json(o);
 			}
 		});
 });

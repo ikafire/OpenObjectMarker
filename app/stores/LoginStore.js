@@ -5,6 +5,7 @@ class LoginStore {
   constructor() {
     this.bindActions(LoginActions);
     this.username = '';
+    this.user = '';
     this.password = '';
     this.loginValidationState = '';
   }

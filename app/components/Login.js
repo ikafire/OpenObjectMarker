@@ -1,6 +1,7 @@
 import React from 'react';
 import LoginStore from '../stores/LoginStore';
 import LoginActions from '../actions/LoginActions';
+import cookie from 'react-cookie';
 
 class Login extends React.Component {
   constructor(props) {
@@ -25,9 +26,12 @@ class Login extends React.Component {
     event.preventDefault();
     var username = this.state.username.trim();
     var password = this.state.password.trim();
-    
-    LoginActions.login(username, password);
 
+    var loginData =  LoginActions.login(username, password);
+
+    console.log(loginData);
+    cookie.save('username', loginData, { path: '/' });
+    console.log(cookie.load('username'));
   }
   
   render() {

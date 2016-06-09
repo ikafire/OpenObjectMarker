@@ -1,6 +1,7 @@
 import React from 'react';
 import LabelStore from '../stores/LabelStore';
 import LabelActions from '../actions/LabelActions';
+import cookie from 'react-cookie';
 
 class Label extends React.Component {
     constructor(props) {
@@ -141,42 +142,53 @@ class Label extends React.Component {
     LabelActions.save(this.state.LabelingImg, this.state.Labels);
   }
 
-  render() {
-
+  renderAuth() {
+    console.log(this.state.user);
+    if (!this.state.user) {
+      this.state.user = cookie.load('username');
+      console.log(this.state.user);
+      if (!this.state.user) {
+        return (<p> Please login first!</p>);
+      }
+    }
     return (
-      <div className='container'>
-      
-        <h1> Open Object Marker </h1>
-        <ul>
-          <li><a href="/home">Home</a></li>
-          <li><a href="/upload">Upload</a></li>
-          <li><a className="active" href="/label">Label</a></li>
-          <li><a href="/explore">Explore</a></li>
-          <li><a href="/login">Login</a></li>
-        </ul>
-        
-        <hr></hr>
-      
-        <div className='row flipInX animated'>
-          <div className='panel panel-default'>
-            <div className='panel-heading'>Label</div>
-            <div className='panel-body'>
-              <div>
-                <canvas id="drawCanvas" height={720} width={1280}/>
-                <select id="selectClass" onChange={this.handleSelect.bind(this)}>
-                  {this.renderClass()}
-                </select>
-              </div>
-              <button type='submit' className='btn btn-primary' onClick={this.handleSubmit.bind(this)}>Submit</button>
-              <button type='save' className='btn btn-primary' onClick={this.saveLabels.bind(this)}>Save</button>
+    <div className='container'>
+
+      <h1> Open Object Marker </h1>
+      <ul>
+        <li><a href="/home">Home</a></li>
+        <li><a href="/upload">Upload</a></li>
+        <li><a className="active" href="/label">Label</a></li>
+        <li><a href="/explore">Explore</a></li>
+        <li><a href="/login">Login</a></li>
+      </ul>
+
+      <hr></hr>
+
+      <div className='row flipInX animated'>
+        <div className='panel panel-default'>
+          <div className='panel-heading'>Label</div>
+          <div className='panel-body'>
+            <div>
+              <canvas id="drawCanvas" height={720} width={1280}/>
+              <select id="selectClass" onChange={this.handleSelect.bind(this)}>
+                {this.renderClass()}
+              </select>
             </div>
-            <div className='panel-body'>
-            {this.renderGallery()}
-            </div>
+            <button type='submit' className='btn btn-primary' onClick={this.handleSubmit.bind(this)}>Submit</button>
+            <button type='save' className='btn btn-primary' onClick={this.saveLabels.bind(this)}>Save</button>
+          </div>
+          <div className='panel-body'>
+          {this.renderGallery()}
           </div>
         </div>
       </div>
+    </div>
     );
+  }
+
+  render() {
+    return this.renderAuth();
   }
 }
 
