@@ -148,7 +148,22 @@ class Label extends React.Component {
       this.state.user = cookie.load('username');
       console.log(this.state.user);
       if (!this.state.user) {
-        return (<p> Please login first!</p>);
+        return (
+          <div className='container'>
+
+            <h1> Open Object Marker </h1>
+            <ul>
+              <li><a href="/home">Home</a></li>
+              <li><a href="/upload">Upload</a></li>
+              <li><a className="active" href="/label">Label</a></li>
+              <li><a href="/explore">Explore</a></li>
+              <li><a href="/login">Login</a></li>
+            </ul>
+
+            <hr></hr>
+              <p> Please login first!</p>
+            </div>
+          );
       }
     }
     return (
