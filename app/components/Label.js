@@ -175,7 +175,7 @@ class Label extends React.Component {
         <li><a href="/upload">Upload</a></li>
         <li><a className="active" href="/label">Label</a></li>
         <li><a href="/explore">Explore</a></li>
-        <li><a href="/login">Login</a></li>
+        <li><a href="/logout">Logout</a></li>
       </ul>
 
       <hr></hr>

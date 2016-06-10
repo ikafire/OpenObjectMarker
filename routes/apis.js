@@ -100,7 +100,7 @@ router.route('/explore')
 
 /* Signup process */
 router.route('/login')
-.post(jsonParser, login_session, function(req, res) {
+.post(jsonParser, function(req, res) {
 
     AM.manualLogin(req.body.username, req.body.password, function(e, o){
 			if (!o){

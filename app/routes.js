@@ -7,6 +7,7 @@ import Explore from './components/Explore';
 import Label from './components/Label';
 import Login from './components/Login';
 import Signup from './components/Signup';
+import Logout from './components/Logout';
 
 export default (
   <Route handler={App}>
@@ -16,5 +17,6 @@ export default (
     <Route path="/label" handler={Label} />
     <Route path="/login" handler={Login} />
     <Route path="/signup" handler={Signup} />
+    <Route path="/logout" handler={Logout} />
   </Route>
 );
