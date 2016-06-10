@@ -1,6 +1,7 @@
 import React from 'react';
 import SignupStore from '../stores/SignupStore';
 import SignupActions from '../actions/SignupActions';
+import cookie from 'react-cookie';
 
 class Signup extends React.Component {
   constructor(props) {

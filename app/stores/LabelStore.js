@@ -16,6 +16,7 @@ class LabelStore {
     this.ctx = "";
     this.class = ['car', 'person'];
     this.selectedValue = 'car';
+    this.user = '';
   }
 }
 

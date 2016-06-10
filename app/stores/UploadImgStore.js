@@ -1,9 +1,9 @@
 import alt from '../alt';
 
-class SignupStore {
+class UploadImgStore {
   constructor() {
     this.user = '';
   }
 }
 
-export default alt.createStore(SignupStore);
+export default alt.createStore(UploadImgStore);

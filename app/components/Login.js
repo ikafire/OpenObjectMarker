@@ -33,7 +33,7 @@ class Login extends React.Component {
     cookie.save('username', loginData, { path: '/' });
     console.log(cookie.load('username'));
   }
-  
+
   render() {
     return (
       <div className='container'>

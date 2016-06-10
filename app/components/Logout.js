@@ -1,7 +1,10 @@
 import React from 'react';
+import cookie from 'react-cookie';
 
 class Logout extends React.Component {
   render() {
+    cookie.save('username', '', { path: '/' });
+    console.log(cookie.load('username'));
     return (
       <div className='container'>
       
