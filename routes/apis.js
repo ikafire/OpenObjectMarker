@@ -8,18 +8,7 @@ var fs = require('fs');
 var multer  = require('multer');
 var AM = require('../modules/account-manager');
 var mongoose = require('mongoose');
-var cookieParser = require('cookie-parser');
-var session = require('express-session');
-var MongoStore = require('connect-mongo')(session);
 
-mongoose.createConnection('mongodb://localhost/session');
-var db = mongoose.connection;
-var login_session = session({
-  secret: 'supersecretstring12345!',
-  saveUninitialized: true,
-  resave: true,
-  store: new MongoStore({ mongooseConnection: db })
-});
 var storage = multer.diskStorage({
   destination: function (request, file, callback) {
     callback(null, 'public/uploads/');
@@ -109,7 +98,7 @@ router.route('/explore')
 });
 
 
-/* Login process */
+/* Signup process */
 router.route('/login')
 .post(jsonParser, login_session, function(req, res) {
 
@@ -118,30 +107,16 @@ router.route('/login')
                 // Send the error message.
 				res.status(400).send(e);
 			}	else{
-                // Success
-                //console.log(req.session);
-				//req.session.username = o;
-                //req.session.save();
-                //console.log("# Session value set "+ req.session);
 				res.json(o);
 			}
 		});
 });
 
-/* Login process */
-router.route('/signUp')
+/* logout process */
+router.route('/logout')
 .post(jsonParser, function(req, res) {
 
-    AM.addNewAccount({
-			username : req.body.username,
-            password : req.body.password
-		}, function(e){
-			if (e){
-				res.status(400).send(e);
-			}	else{
-				res.status(200).send('ok');
-			}
-		});
+
 });
 
 
