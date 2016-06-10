@@ -59,7 +59,7 @@ class Login extends React.Component {
               <input type='text' className='form-control' ref='nameTextField' value={this.state.username}
                       onChange={LoginActions.updateUsername} autoFocus/>
               <label className='control-label'>Password</label>
-              <input type='text' className='form-control' ref='nameTextField' value={this.state.password}
+              <input type='password' className='form-control' ref='nameTextField' value={this.state.password}
                       onChange={LoginActions.updatePassword} autoFocus/>
               </div>
               <button type='submit' className='btn btn-primary'>Login</button>
