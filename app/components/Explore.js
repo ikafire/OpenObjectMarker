@@ -103,6 +103,9 @@ class Explore extends React.Component {
             <form onSubmit={this.handleSubmit.bind(this)}>
             <button type='submit' className='btn btn-primary' onclick={this.handleSubmit.bind(this)}>Submit</button>
             </form>
+            <form method="get" action="/api/DownloadLabels">
+              <button type="submit">Download</button>
+            </form>
             </div>
             <div className='panel-body'>
             <canvas id="drawCanvas" height={300} width={300}/> </div>

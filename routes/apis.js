@@ -128,4 +128,18 @@ router.route('/signUp')
 		});
 });
 
+/* Download Labels process */
+router.route('/DownloadLabels')
+.get(jsonParser, function(req, res) {
+
+    Label.find(function(err, label) {
+      if(err)
+        res.send(err);
+
+      fs.writeFileSync("./tmpLabels.json", JSON.stringify(label));
+      var file = './tmpLabels.json';
+      res.download(file);
+  });
+});
+
 module.exports = router;
