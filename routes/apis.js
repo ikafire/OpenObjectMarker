@@ -98,7 +98,7 @@ router.route('/explore')
 });
 
 
-/* Signup process */
+/* Login process */
 router.route('/login')
 .post(jsonParser, function(req, res) {
 
@@ -112,13 +112,20 @@ router.route('/login')
 		});
 });
 
-/* logout process */
-router.route('/logout')
+/* Signup process */
+router.route('/signUp')
 .post(jsonParser, function(req, res) {
 
-
+    AM.addNewAccount({
+			user : req.body.user_name,
+            pass : req.body.password
+		}, function(e){
+			if (e){
+				res.status(400).send(e);
+			}	else{
+				res.status(200).send('ok');
+			}
+		});
 });
-
-
 
 module.exports = router;
