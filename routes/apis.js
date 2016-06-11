@@ -113,11 +113,11 @@ router.route('/login')
 });
 
 /* Signup process */
-router.route('/signUp')
+router.route('/signup')
 .post(jsonParser, function(req, res) {
 
     AM.addNewAccount({
-			user : req.body.user_name,
+			user : req.body.username,
             pass : req.body.password
 		}, function(e){
 			if (e){
