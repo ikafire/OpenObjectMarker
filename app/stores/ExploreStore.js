@@ -7,6 +7,7 @@ class ExploreStore {
     this.explore = '';
     this.data = '';
     this.class = ['car', 'person'];
+    this.selectedValue = 'car';
   }
 }
 
