@@ -63,7 +63,7 @@ class Label extends React.Component {
     this.state.ctx.fillRect(0,0,1280,720);
 
     this.state.ctx.stroke();
-    this.state.ctx.drawImage(img, 480 , 210, 300, 300);
+    this.state.ctx.drawImage(img, 32 , 18, 1024, 576);
 
     for (var i = 0; i < this.state.Labels.length; i++) {
       this.state.ctx.strokeRect((this.state.Labels)[i].startX, (this.state.Labels)[i].startY, (this.state.Labels)[i].w, (this.state.Labels)[i].h);
