@@ -90,7 +90,7 @@ class Label extends React.Component {
     this.state.ctx = ctx;
     var topMap = new Image();
     topMap.src = img.target.src;
-    ctx.drawImage(topMap, 480 , 210, 300, 300);
+    ctx.drawImage(topMap, 32 , 18, 1024, 576);
     ctx.strokeStyle="red";
 
   }
@@ -102,7 +102,7 @@ class Label extends React.Component {
 
     for (var i = 0; i < data.length; i++) {
       var img = "uploads/" + data[i].image_id;
-      images.push(<img src={img}  width={300} height={300} onClick={this.updateCanvas.bind(this)}/>);
+      images.push(<img src={img}  width={345} height={345} onClick={this.updateCanvas.bind(this)}/>);
     }
 
     return images;
@@ -185,7 +185,7 @@ class Label extends React.Component {
           <div className='panel-heading'>Label</div>
           <div className='panel-body'>
             <div>
-              <canvas id="drawCanvas" height={720} width={1280}/>
+              <canvas id="drawCanvas" height={612} width={1088}/>
               <select id="selectClass" onChange={this.handleSelect.bind(this)}>
                 {this.renderClass()}
               </select>
