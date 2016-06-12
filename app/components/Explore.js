@@ -45,15 +45,28 @@ class Explore extends React.Component {
 
       for (var i = 0; i < data.length; i++) {
           var img = "uploads/" + data[i].image_id;
-          images.push(<img src={img}  width={300} height={300} onClick={this.updateCanvas.bind(this.src)}/>);
+          images.push(<img src={img}  width={345} height={345} onClick={this.updateCanvas.bind(this.src)}/>);
        }
 
       return images;
   }
 
+  renderClass() {
+    var options = [];
+    var data = this.state.class;
+
+    for (var i = 0; i < data.length; i++) {
+      var option = data[i];
+      options.push(<option value={option}>{option}</option>);
+    }
+
+    return options;
+  }
+
   handleSubmit(event) {
     event.preventDefault();
     var successMessage = ExploreActions.exploreByClass();
+    var selectClass = document.getElementById("selectClass");
     this.state.data = successMessage;
     this.forceUpdate();
   }
@@ -101,16 +114,19 @@ class Explore extends React.Component {
             <div className='panel-heading'>Explore</div>
             <div className='panel-body'>
             <form onSubmit={this.handleSubmit.bind(this)}>
-            <button type='submit' className='btn btn-primary' onclick={this.handleSubmit.bind(this)}>Submit</button>
+              <div >
+                <select id="selectClass">
+                  {this.renderClass()}
+                </select>
+              </div>
+              <button type='submit' className='btn btn-primary' onclick={this.handleSubmit.bind(this)}>Submit</button>
             </form>
             <form method="get" action="/api/DownloadLabels">
-              <button type="submit">Download</button>
+              <button type="submit" className='btn btn-primary'>Download</button>
             </form>
             </div>
             <div className='panel-body'>
-            <canvas id="drawCanvas" height={300} width={300}/> </div>
-            <div className='panel-body'>
-            {this.renderGallery()}
+              {this.renderGallery()}
             </div>
           </div>
         </div>
