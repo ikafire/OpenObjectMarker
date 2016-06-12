@@ -129,9 +129,11 @@ router.route('/signup')
 });
 
 /* Download Labels process */
-router.route('/DownloadLabels')
+router.route('/DownloadLabels/:class')
 .get(jsonParser, function(req, res) {
 
+    var cls = req.params;
+    console.log(cls);
     Label.find(function(err, label) {
       if(err)
         res.send(err);

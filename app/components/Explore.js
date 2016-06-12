@@ -71,6 +71,24 @@ class Explore extends React.Component {
     this.forceUpdate();
   }
 
+  handleSelect(event) {
+    event.preventDefault();
+    var selectClass = document.getElementById("selectClass");
+    this.state.selectedValue = selectClass.options[selectClass.selectedIndex].value;
+    this.forceUpdate();
+    console.log(this.state.selectedValue);
+  }
+
+  renderDownload() {
+
+    var downloadUrl = "/api/DownloadLabels/" + this.state.selectedValue;
+    console.log(downloadUrl);
+    return (
+      <form method="get" action={downloadUrl}>
+        <button type="submit" className='btn btn-primary'>Download</button>
+      </form>
+    );
+  }
   renderAuth() {
     console.log(this.state.user);
     if (!this.state.user) {
@@ -115,15 +133,13 @@ class Explore extends React.Component {
             <div className='panel-body'>
             <form onSubmit={this.handleSubmit.bind(this)}>
               <div >
-                <select id="selectClass">
+                <select id="selectClass"  onChange={this.handleSelect.bind(this)}>
                   {this.renderClass()}
                 </select>
               </div>
               <button type='submit' className='btn btn-primary' onclick={this.handleSubmit.bind(this)}>Submit</button>
             </form>
-            <form method="get" action="/api/DownloadLabels">
-              <button type="submit" className='btn btn-primary'>Download</button>
-            </form>
+            {this.renderDownload()}
             </div>
             <div className='panel-body'>
               {this.renderGallery()}
