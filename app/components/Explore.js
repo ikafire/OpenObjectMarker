@@ -57,7 +57,7 @@ class Explore extends React.Component {
 
     for (var i = 0; i < data.length; i++) {
       var option = data[i];
-      options.push(<option value={option}>{option}</option>);
+      options.push(<div ><input id="selectClass" type='checkbox' className='option' value={option}> {option}</input></div>);
     }
 
     return options;
@@ -69,14 +69,6 @@ class Explore extends React.Component {
     var selectClass = document.getElementById("selectClass");
     this.state.data = successMessage;
     this.forceUpdate();
-  }
-
-  handleSelect(event) {
-    event.preventDefault();
-    var selectClass = document.getElementById("selectClass");
-    this.state.selectedValue = selectClass.options[selectClass.selectedIndex].value;
-    this.forceUpdate();
-    console.log(this.state.selectedValue);
   }
 
   renderDownload() {
@@ -132,11 +124,7 @@ class Explore extends React.Component {
             <div className='panel-heading'>Explore</div>
             <div className='panel-body'>
             <form onSubmit={this.handleSubmit.bind(this)}>
-              <div >
-                <select id="selectClass"  onChange={this.handleSelect.bind(this)}>
-                  {this.renderClass()}
-                </select>
-              </div>
+              {this.renderClass()}
               <button type='submit' className='btn btn-primary' onclick={this.handleSubmit.bind(this)}>Submit</button>
             </form>
             {this.renderDownload()}
