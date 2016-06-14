@@ -34,15 +34,15 @@ class Label extends React.Component {
 
       // Because "push" in javascript is passing by reference,
       // we create a new object to push here.
-      var storeLabel =  {};
-      storeLabel.startX = this.state.rect.startX;
+      var storeLabel =  {startX: this.state.rect.startX, startY:this.state.rect.startY,
+                        w: this.state.rect.w, h: this.state.rect.h, class: this.state.selectedValue};
+      /*storeLabel.startX = this.state.rect.startX;
       storeLabel.startY = this.state.rect.startY;
       storeLabel.w = this.state.rect.w;
       storeLabel.h = this.state.rect.h;
-      storeLabel.class = this.state.selectedValue;
+      storeLabel.class = this.state.selectedValue;*/
 
       this.state.Labels.push(storeLabel);
-      //console.log(this.state.Labels);
       this.state.drag = false;
     }
 
@@ -60,10 +60,10 @@ class Label extends React.Component {
     img.src = this.state.LabelingImg;
     this.state.ctx.beginPath();
     this.state.ctx.fillStyle="white";
-    this.state.ctx.fillRect(0,0,1280,720);
+    this.state.ctx.fillRect(0,0,690,690);
 
     this.state.ctx.stroke();
-    this.state.ctx.drawImage(img, 32 , 18, 1024, 576);
+    this.state.ctx.drawImage(img, 32 , 18, 690, 690);
 
     for (var i = 0; i < this.state.Labels.length; i++) {
       this.state.ctx.strokeRect((this.state.Labels)[i].startX, (this.state.Labels)[i].startY, (this.state.Labels)[i].w, (this.state.Labels)[i].h);
@@ -74,14 +74,12 @@ class Label extends React.Component {
 
   updateCanvas(img) {
 
-    console.log(img.target.src);
+    this.state.Labels = [];
     this.state.LabelingImg = img.target.src;
-    this.forceUpdate();
+    //this.forceUpdate();
     var c = document.getElementById("drawCanvas");
     this.state.offsetLeft = c.offsetLeft;
     this.state.offsetTop = c.offsetTop;
-    console.log(c.offsetLeft);
-    console.log(c.offsetTop);
     c.addEventListener("mousedown", this.mouseDown.bind(this), false);
     c.addEventListener("mouseup", this.mouseUp.bind(this), false);
     c.addEventListener("mousemove", this.mouseMove.bind(this), false);
@@ -90,7 +88,7 @@ class Label extends React.Component {
     this.state.ctx = ctx;
     var topMap = new Image();
     topMap.src = img.target.src;
-    ctx.drawImage(topMap, 32 , 18, 1024, 576);
+    ctx.drawImage(topMap, 32 , 18, 690, 690);
     ctx.strokeStyle="red";
 
   }
@@ -163,7 +161,7 @@ class Label extends React.Component {
           <div className='panel-heading'>Label</div>
           <div className='panel-body'>
             <div>
-              <canvas id="drawCanvas" height={612} width={1088}/>
+              <canvas id="drawCanvas" height={726} width={754}/>
               <select id="selectClass" onChange={this.handleSelect.bind(this)}>
                 {this.renderClass()}
               </select>
@@ -181,10 +179,8 @@ class Label extends React.Component {
     }
 
   renderAuth() {
-    console.log(!this.state.user);
     if (!this.state.user) {
       this.state.user = cookie.load('username');
-      console.log(!this.state.user);
       if (this.state.user == 'undefined' | !this.state.user) {
         return (
           <div className='container'>

@@ -26,29 +26,70 @@ class Explore extends React.Component {
     this.setState(state);
   }
   
-  updateCanvas(img) {
+  updateCanvas() {
 
-    console.log(img.target.src);
-    var c = document.getElementById("drawCanvas");
+    /* var c = document.getElementById("drawCanvas");
     const ctx = c.getContext('2d');
-    var topMap = new Image();
-    topMap.src = img.target.src;
-    ctx.clearRect(0 , 0, 300, 300);
-    ctx.drawImage(topMap, 0 , 0, 300, 300);
+    var data = this.state.data;
+    console.log(data);
+    console.log(data[0].labels[0]);
+    c.width = 600;
+    c.height = Math.ceil(data.length / 2) * 300;
+
+    for (var i = 0; i < data.length; i++) {
+      var topMap = new Image();
+      console.log('uploads/' + data[i].image_id);
+      topMap.src = 'uploads/' + data[i].image_id;
+      ctx.drawImage(topMap, (i % 2) * 300 , Math.floor(i / 2) * 300 , 300, 300);
+      ctx.strokeStyle="red";
+      ctx.rect((i % 2) * 300 + 50, Math.floor(i / 2) * 300 + 50, 200, 200);
+      ctx.stroke();
+    } */
+    
+    var ctxs = document.getElementsByClassName("drawCanvas");
+    var data = this.state.data;
+    console.log(ctxs);
+    
+    for (var i = 0; i < 5; i++) {
+      if (data[i]) {
+        console.log(data[i]);
+        const labels = data[i].labels;
+        const ctx = ctxs[i].getContext('2d');
+        console.log(ctx);
+        ctx.height = 345;
+        ctx.width = 345;
+        var topMap = new Image();
+        topMap.src = 'uploads/' + data[i].image_id;
+        ctx.drawImage(topMap, 0, 0 , 345, 345);
+        for (var j = 0; j < labels.length; j++) {
+          var label = labels[j];
+          ctx.strokeStyle="red";
+          ctx.rect(label.startX / 2, label.startY / 2, label.w / 2, label.h / 2);
+          console.log(label.startX, label.startY, label.w, label.h);
+          ctx.stroke();
+        }
+        
+      } else break;
+    }
 
   }
-
 
   renderGallery(){
 
       var images = [];
       var data = this.state.data;
-
+      /*
       for (var i = 0; i < data.length; i++) {
           var img = "uploads/" + data[i].image_id;
           images.push(<img src={img}  width={345} height={345} onClick={this.updateCanvas.bind(this.src)}/>);
        }
 
+      return images;*/
+      
+      for (var i = 0; i < 5; i++) {
+        images.push(<canvas id="drawCanvas" className="drawCanvas" height={345} width={345}/>);
+      }
+      console.log(images);
       return images;
   }
 
@@ -70,6 +111,7 @@ class Explore extends React.Component {
     var successMessage = ExploreActions.exploreByClass();
     var selectClass = document.getElementById("selectClass");
     this.state.data = successMessage;
+    this.updateCanvas();
     this.forceUpdate();
   }
 
@@ -140,11 +182,9 @@ class Explore extends React.Component {
   }
   
   renderAuth() {
-    console.log(this.state.user);
     if (this.state.user == undefined) {
       this.state.user = cookie.load('username');
       if (this.state.user == 'undefined' | !this.state.user) {
-        console.log('??');
         return (
           <div className='container'>
 
