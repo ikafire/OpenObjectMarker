@@ -16,16 +16,6 @@ class SignupStore {
   onAddLabelFail(errorMessage) {
     this.signupValidationState = 'has-error';
   }
-  
-  onUpdateName(event) {
-    this.name = event.target.value;
-    this.signupValidationState = '';
-  }
-
-  onUpdateEmail(event) {
-    this.email = event.target.value;
-    this.signupValidationState = '';
-  }
 
   onUpdateUsername(event) {
     this.username = event.target.value;

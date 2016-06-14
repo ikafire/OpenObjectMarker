@@ -145,4 +145,20 @@ router.route('/DownloadLabels/:class')
   });
 });
 
+/* Download all Labels process */
+router.route('/DownloadLabels/')
+.get(jsonParser, function(req, res) {
+
+    var cls = req.params;
+    console.log(cls);
+    Label.find(function(err, label) {
+      if(err)
+        res.send(err);
+
+      fs.writeFileSync("./tmpLabels.json", JSON.stringify(label));
+      var file = './tmpLabels.json';
+      res.download(file);
+  });
+});
+
 module.exports = router;

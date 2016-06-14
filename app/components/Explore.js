@@ -26,15 +26,33 @@ class Explore extends React.Component {
     this.setState(state);
   }
   
-  updateCanvas(img) {
+  updateCanvas() {
 
-    console.log(img.target.src);
-    var c = document.getElementById("drawCanvas");
-    const ctx = c.getContext('2d');
-    var topMap = new Image();
-    topMap.src = img.target.src;
-    ctx.clearRect(0 , 0, 300, 300);
-    ctx.drawImage(topMap, 0 , 0, 300, 300);
+    var ctxs = document.getElementsByClassName("drawCanvas");
+    var data = this.state.data;
+    console.log(ctxs);
+    
+    for (var i = 0; i < 5; i++) {
+      if (data[i]) {
+        console.log(data[i]);
+        const labels = data[i].labels;
+        const ctx = ctxs[i].getContext('2d');
+        console.log(ctx);
+        ctx.height = 345;
+        ctx.width = 345;
+        var topMap = new Image();
+        topMap.src = 'uploads/' + data[i].image_id;
+        ctx.drawImage(topMap, 0, 0 , 345, 345);
+
+        for (var j = 0; j < labels.length; j++) {
+          var label = labels[j];
+          ctx.strokeStyle="red";
+          ctx.rect(label.startX / 2, label.startY / 2, label.w / 2, label.h / 2);
+          console.log(label.startX, label.startY, label.w, label.h);
+          ctx.stroke();
+        }
+      } else break;
+    }
 
   }
 
@@ -43,11 +61,9 @@ class Explore extends React.Component {
       var images = [];
       var data = this.state.data;
 
-      for (var i = 0; i < data.length; i++) {
-          var img = "uploads/" + data[i].image_id;
-          images.push(<img src={img}  width={345} height={345} onClick={this.updateCanvas.bind(this.src)}/>);
-       }
-
+      for (var i = 0; i < 5; i++) {
+        images.push(<canvas id="drawCanvas" className="drawCanvas" height={345} width={345}/>);
+      }
       return images;
   }
 
@@ -65,26 +81,45 @@ class Explore extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
+    var checkboxes = document.getElementsByClassName("class");
     var successMessage = ExploreActions.exploreByClass();
     var selectClass = document.getElementById("selectClass");
     this.state.data = successMessage;
+    this.updateCanvas();
     this.forceUpdate();
   }
 
+  downloadUrl() {
+    var checkboxes = document.getElementsByClassName("class");
+    
+    var downloadUrl = "/api/DownloadLabels/";
+    var firstAppend = true;
+    for (var i = 0; i < checkboxes.length; i++) {
+      if(checkboxes[i].checked) {
+        if(firstAppend) {
+          downloadUrl += checkboxes[i].value;
+          firstAppend = false;
+        }
+        else downloadUrl += ("," + checkboxes[i].value);
+      }
+    }
+    
+    return downloadUrl;
+  }
   renderDownload() {
 
-    var downloadUrl = "/api/DownloadLabels/" + this.state.selectedValue;
-    console.log(downloadUrl);
+    var checkboxes = document.getElementsByClassName("class");
+    console.log(checkboxes);
+
     return (
-      <form method="get" action={downloadUrl}>
+      <form method="get" action={this.downloadUrl()}>
         <button type="submit" className='btn btn-primary'>Download</button>
       </form>
     );
   }
   
-  /* render regular page after login. */
+  /* Render regular page after login. */
   renderPage() {
-    console.log('hello');
     return (
       <div className='container'>
       
@@ -119,14 +154,11 @@ class Explore extends React.Component {
       </div>
       );
   }
-  
+
   renderAuth() {
-    console.log(this.state.user);
     if (this.state.user == undefined) {
       this.state.user = cookie.load('username');
-      console.log(this.state.user == 'undefined' | !this.state.user);
       if (this.state.user == 'undefined' | !this.state.user) {
-        console.log('??');
         return (
           <div className='container'>
 

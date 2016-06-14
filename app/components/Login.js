@@ -29,50 +29,73 @@ class Login extends React.Component {
 
     var loginData =  LoginActions.login(username, password);
 
-    console.log(loginData);
     cookie.save('username', loginData, { path: '/' });
-    console.log(cookie.load('username'));
+    window.location.assign('http://localhost:3000/home');
   }
 
-  render() {
+  renderHome() {
     return (
       <div className='container'>
       
         <h1> Open Object Marker </h1>
         <ul>
-          <li><a href="/home">Home</a></li>
+          <li><a className="active" href="/home">Home</a></li>
           <li><a href="/upload">Upload</a></li>
           <li><a href="/label">Label</a></li>
           <li><a href="/explore">Explore</a></li>
-          <li><a className="active" href="/login">Login</a></li>
+          <li><a href="/logout">Logout</a></li>
         </ul>
         
         <hr></hr>
         
-        <div className='row flipInX animated'>
-          <div className='panel panel-default'>
-            <div className='panel-heading'>Login</div>
-            <div className='panel-body'>
-            <form onSubmit={this.handleSubmit.bind(this)}>
-              <div className={'form-group ' + this.state.labelValidationState}>
-              <label className='control-label'>Username</label>
-              <input type='text' className='form-control' ref='nameTextField' value={this.state.username}
-                      onChange={LoginActions.updateUsername} autoFocus/>
-              <label className='control-label'>Password</label>
-              <input type='password' className='form-control' ref='nameTextField' value={this.state.password}
+        <p>Open Object Marker is a platform for you to share images and annotate them through collaboration.</p>
+        <p>Upload your images and hope others to annotate them for you!</p>
+        <p>The more you annotate, the more you can download!</p>
+
+      </div>
+    );
+  }
+
+  render() {
+    //return this.renderAuth();
+    
+    return (
+          <div className='container'>
+
+            <h1> Open Object Marker </h1>
+            <ul>
+              <li><a href="/home">Home</a></li>
+              <li><a href="/upload">Upload</a></li>
+              <li><a href="/label">Label</a></li>
+              <li><a href="/explore">Explore</a></li>
+              <li><a className="active" href="/login">Login</a></li>
+            </ul>
+
+          <hr></hr>
+
+          <div className='row flipInX animated'>
+            <div className='panel panel-default'>
+              <div className='panel-heading'>Login</div>
+              <div className='panel-body'>
+              <form onSubmit={this.handleSubmit.bind(this)}>
+                <div className={'form-group ' + this.state.labelValidationState}>
+                <label className='control-label'>Username</label>
+                <input type='text' className='form-control' ref='nameTextField' value={this.state.username}
+                        onChange={LoginActions.updateUsername} autoFocus/>
+                <label className='control-label'>Password</label>
+                <input type='password' className='form-control' ref='nameTextField' value={this.state.password}
                       onChange={LoginActions.updatePassword} autoFocus/>
+                </div>
+                <button type='submit' className='btn btn-primary'>Login</button>
+                <a href="/signup">
+                  <button type='button' className='btn btn-primary'>Signup</button>
+                </a>
+              </form>
               </div>
-              <button type='submit' className='btn btn-primary'>Login</button>
-              <a href="/signup">
-                <button type='button' className='btn btn-primary'>Signup</button>
-              </a>
-            </form>
             </div>
           </div>
         </div>
-        
-      </div>
-    );
+        );
   }
 }
 
