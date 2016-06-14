@@ -57,7 +57,7 @@ class Explore extends React.Component {
 
     for (var i = 0; i < data.length; i++) {
       var option = data[i];
-      options.push(<div ><input id="selectClass" type='checkbox' className='option' value={option}> {option}</input></div>);
+      options.push(<label ><input id="selectClass" type='checkbox' className='option' value={option}> {option}</input></label>);
     }
 
     return options;
@@ -124,7 +124,9 @@ class Explore extends React.Component {
             <div className='panel-heading'>Explore</div>
             <div className='panel-body'>
             <form onSubmit={this.handleSubmit.bind(this)}>
-              {this.renderClass()}
+              <div >
+                {this.renderClass()}
+              </div>
               <button type='submit' className='btn btn-primary' onclick={this.handleSubmit.bind(this)}>Submit</button>
             </form>
             {this.renderDownload()}
