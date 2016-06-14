@@ -142,12 +142,50 @@ class Label extends React.Component {
     LabelActions.save(this.state.LabelingImg, this.state.Labels);
   }
 
+  /* render regular page after login. */
+  renderPage() {
+    return (
+      <div className='container'>
+
+        <h1> Open Object Marker </h1>
+        <ul>
+          <li><a href="/home">Home</a></li>
+          <li><a href="/upload">Upload</a></li>
+          <li><a className="active" href="/label">Label</a></li>
+          <li><a href="/explore">Explore</a></li>
+          <li><a href="/logout">Logout</a></li>
+        </ul>
+
+        <hr></hr>
+
+      <div className='row flipInX animated'>
+        <div className='panel panel-default'>
+          <div className='panel-heading'>Label</div>
+          <div className='panel-body'>
+            <div>
+              <canvas id="drawCanvas" height={612} width={1088}/>
+              <select id="selectClass" onChange={this.handleSelect.bind(this)}>
+                {this.renderClass()}
+              </select>
+            </div>
+              <button type='submit' className='btn btn-primary' onClick={this.handleSubmit.bind(this)}>Submit</button>
+              <button type='save' className='btn btn-primary' onClick={this.saveLabels.bind(this)}>Save</button>
+            </div>
+              <div className='panel-body'>
+                {this.renderGallery()}
+              </div>
+            </div>
+          </div>
+      </div>
+      );
+    }
+
   renderAuth() {
-    console.log(this.state.user);
+    console.log(!this.state.user);
     if (!this.state.user) {
       this.state.user = cookie.load('username');
-      console.log(this.state.user);
-      if (!this.state.user) {
+      console.log(!this.state.user);
+      if (this.state.user == 'undefined' | !this.state.user) {
         return (
           <div className='container'>
 
@@ -164,42 +202,8 @@ class Label extends React.Component {
               <p> Please login first!</p>
             </div>
           );
-      }
-    }
-    return (
-    <div className='container'>
-
-      <h1> Open Object Marker </h1>
-      <ul>
-        <li><a href="/home">Home</a></li>
-        <li><a href="/upload">Upload</a></li>
-        <li><a className="active" href="/label">Label</a></li>
-        <li><a href="/explore">Explore</a></li>
-        <li><a href="/logout">Logout</a></li>
-      </ul>
-
-      <hr></hr>
-
-      <div className='row flipInX animated'>
-        <div className='panel panel-default'>
-          <div className='panel-heading'>Label</div>
-          <div className='panel-body'>
-            <div>
-              <canvas id="drawCanvas" height={612} width={1088}/>
-              <select id="selectClass" onChange={this.handleSelect.bind(this)}>
-                {this.renderClass()}
-              </select>
-            </div>
-            <button type='submit' className='btn btn-primary' onClick={this.handleSubmit.bind(this)}>Submit</button>
-            <button type='save' className='btn btn-primary' onClick={this.saveLabels.bind(this)}>Save</button>
-          </div>
-          <div className='panel-body'>
-          {this.renderGallery()}
-          </div>
-        </div>
-      </div>
-    </div>
-    );
+      } else return this.renderPage();
+    } else return this.renderPage();
   }
 
   render() {

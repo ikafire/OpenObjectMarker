@@ -14,7 +14,7 @@ class Home extends React.Component {
     if (!this.state.user) {
       this.state.user = cookie.load('username');
       console.log(this.state.user);
-      if (!this.state.user) {
+      if (this.state.user == 'undefined' | !this.state.user) {
         return (
           <div className='container'>
       

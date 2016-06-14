@@ -89,12 +89,51 @@ class Explore extends React.Component {
       </form>
     );
   }
+  
+  /* render regular page after login. */
+  renderPage() {
+    return (
+      <div className='container'>
+      
+          <h1> Open Object Marker </h1>
+          <ul>
+            <li><a href="/home">Home</a></li>
+            <li><a href="/upload">Upload</a></li>
+            <li><a href="/label">Label</a></li>
+            <li><a className="active" href="/explore">Explore</a></li>
+            <li><a href="/logout">Logout</a></li>
+          </ul>
+        
+          <hr></hr>
+      
+          <div className='row flipInX animated'>
+            <div className='panel panel-default'>
+              <div className='panel-heading'>Explore</div>
+              <div className='panel-body'>
+              <form onSubmit={this.handleSubmit.bind(this)}>
+                <div >
+                  <select id="selectClass"  onChange={this.handleSelect.bind(this)}>
+                    {this.renderClass()}
+                  </select>
+                </div>
+                <button type='submit' className='btn btn-primary' onclick={this.handleSubmit.bind(this)}>Submit</button>
+              </form>
+              {this.renderDownload()}
+              </div>
+              <div className='panel-body'>
+                {this.renderGallery()}
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+  }
+  
   renderAuth() {
     console.log(this.state.user);
-    if (!this.state.user) {
+    if (this.state.user == undefined) {
       this.state.user = cookie.load('username');
-      console.log(this.state.user);
-      if (!this.state.user) {
+      if (this.state.user == 'undefined' | !this.state.user) {
         return (
           <div className='container'>
 
@@ -111,45 +150,9 @@ class Explore extends React.Component {
               <p> Please login first!</p>
             </div>
           );
-      }
-    }
-    return (
-    <div className='container'>
-      
-        <h1> Open Object Marker </h1>
-        <ul>
-          <li><a href="/home">Home</a></li>
-          <li><a href="/upload">Upload</a></li>
-          <li><a href="/label">Label</a></li>
-          <li><a className="active" href="/explore">Explore</a></li>
-          <li><a href="/logout">Logout</a></li>
-        </ul>
-        
-        <hr></hr>
-      
-        <div className='row flipInX animated'>
-          <div className='panel panel-default'>
-            <div className='panel-heading'>Explore</div>
-            <div className='panel-body'>
-            <form onSubmit={this.handleSubmit.bind(this)}>
-              <div >
-                <select id="selectClass"  onChange={this.handleSelect.bind(this)}>
-                  {this.renderClass()}
-                </select>
-              </div>
-              <button type='submit' className='btn btn-primary' onclick={this.handleSubmit.bind(this)}>Submit</button>
-            </form>
-            {this.renderDownload()}
-            </div>
-            <div className='panel-body'>
-              {this.renderGallery()}
-            </div>
-          </div>
-        </div>
-      </div>
-    );
+      } else return this.renderPage();
+    } else return this.renderPage();
   }
-  
   render() {
 
     return this.renderAuth();

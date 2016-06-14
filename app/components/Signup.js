@@ -24,12 +24,10 @@ class Signup extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    var name = this.state.name.trim();
-    var email = this.state.email.trim();
     var username = this.state.username.trim();
     var password = this.state.password.trim();
     
-    SignupActions.signup(name, email, username, password);
+    SignupActions.signup(username, password);
 
   }
   
@@ -54,12 +52,6 @@ class Signup extends React.Component {
             <div className='panel-body'>
             <form onSubmit={this.handleSubmit.bind(this)}>
               <div className={'form-group ' + this.state.labelValidationState}>
-              <label className='control-label'>Name</label>
-              <input type='text' className='form-control' ref='nameTextField' value={this.state.name}
-                      onChange={SignupActions.updateName} autoFocus/>
-              <label className='control-label'>E-mail</label>
-              <input type='text' className='form-control' ref='nameTextField' value={this.state.email}
-                      onChange={SignupActions.updateEmail} autoFocus/>
               <label className='control-label'>Username</label>
               <input type='text' className='form-control' ref='nameTextField' value={this.state.username}
                       onChange={SignupActions.updateUsername} autoFocus/>
