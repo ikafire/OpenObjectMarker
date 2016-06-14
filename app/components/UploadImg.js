@@ -43,32 +43,7 @@ class UploadImg extends React.Component {
         </div>
       );
   }
-  /*
-  renderAuth() {
 
-    if (!this.state.user) {
-      this.state.user = cookie.load('username');
-      if (this.state.user == 'undefined' | !this.state.user) {
-        return (
-          <div className='container'>
-
-            <h1> Open Object Marker </h1>
-            <ul>
-              <li><a href="/home">Home</a></li>
-              <li><a className="active"  href="/upload">Upload</a></li>
-              <li><a href="/label">Label</a></li>
-              <li><a href="/explore">Explore</a></li>
-              <li><a href="/login">Login</a></li>
-            </ul>
-
-            <hr></hr>
-              <p> Please login first!</p>
-            </div>
-          );
-      }
-      else return this.renderPage();
-    } else return this.renderPage();
-  } */
   render() {
     return this.renderPage();
   }

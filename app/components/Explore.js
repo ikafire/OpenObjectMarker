@@ -28,24 +28,6 @@ class Explore extends React.Component {
   
   updateCanvas() {
 
-    /* var c = document.getElementById("drawCanvas");
-    const ctx = c.getContext('2d');
-    var data = this.state.data;
-    console.log(data);
-    console.log(data[0].labels[0]);
-    c.width = 600;
-    c.height = Math.ceil(data.length / 2) * 300;
-
-    for (var i = 0; i < data.length; i++) {
-      var topMap = new Image();
-      console.log('uploads/' + data[i].image_id);
-      topMap.src = 'uploads/' + data[i].image_id;
-      ctx.drawImage(topMap, (i % 2) * 300 , Math.floor(i / 2) * 300 , 300, 300);
-      ctx.strokeStyle="red";
-      ctx.rect((i % 2) * 300 + 50, Math.floor(i / 2) * 300 + 50, 200, 200);
-      ctx.stroke();
-    } */
-    
     var ctxs = document.getElementsByClassName("drawCanvas");
     var data = this.state.data;
     console.log(ctxs);
@@ -61,6 +43,7 @@ class Explore extends React.Component {
         var topMap = new Image();
         topMap.src = 'uploads/' + data[i].image_id;
         ctx.drawImage(topMap, 0, 0 , 345, 345);
+
         for (var j = 0; j < labels.length; j++) {
           var label = labels[j];
           ctx.strokeStyle="red";
@@ -68,7 +51,6 @@ class Explore extends React.Component {
           console.log(label.startX, label.startY, label.w, label.h);
           ctx.stroke();
         }
-        
       } else break;
     }
 
@@ -78,18 +60,10 @@ class Explore extends React.Component {
 
       var images = [];
       var data = this.state.data;
-      /*
-      for (var i = 0; i < data.length; i++) {
-          var img = "uploads/" + data[i].image_id;
-          images.push(<img src={img}  width={345} height={345} onClick={this.updateCanvas.bind(this.src)}/>);
-       }
 
-      return images;*/
-      
       for (var i = 0; i < 5; i++) {
         images.push(<canvas id="drawCanvas" className="drawCanvas" height={345} width={345}/>);
       }
-      console.log(images);
       return images;
   }
 
@@ -136,9 +110,7 @@ class Explore extends React.Component {
 
     var checkboxes = document.getElementsByClassName("class");
     console.log(checkboxes);
-    
-    // var downloadUrl = "/api/DownloadLabels/" + this.state.selectedValue;
-    // console.log(downloadUrl);
+
     return (
       <form method="get" action={this.downloadUrl()}>
         <button type="submit" className='btn btn-primary'>Download</button>
@@ -146,7 +118,7 @@ class Explore extends React.Component {
     );
   }
   
-  /* render regular page after login. */
+  /* Render regular page after login. */
   renderPage() {
     return (
       <div className='container'>
@@ -182,7 +154,7 @@ class Explore extends React.Component {
       </div>
       );
   }
-  
+
   renderAuth() {
     if (this.state.user == undefined) {
       this.state.user = cookie.load('username');
