@@ -30,7 +30,7 @@ class Login extends React.Component {
     var loginData =  LoginActions.login(username, password);
 
     cookie.save('username', loginData, { path: '/' });
-    this.forceUpdate();
+    window.location.assign('http://localhost:3000/home');
   }
 
   renderHome() {
@@ -56,12 +56,10 @@ class Login extends React.Component {
     );
   }
 
-  renderAuth() {
-    if (!this.state.user) {
-      this.state.user = cookie.load('username');
-      if (this.state.user == 'undefined' | !this.state.user) {
-        console.log('22');
-        return (
+  render() {
+    //return this.renderAuth();
+    
+    return (
           <div className='container'>
 
             <h1> Open Object Marker </h1>
@@ -98,12 +96,6 @@ class Login extends React.Component {
           </div>
         </div>
         );
-      } else return this.renderHome();
-    } else return this.renderHome();
-  }
-
-  render() {
-    return this.renderAuth();
   }
 }
 
