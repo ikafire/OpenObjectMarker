@@ -27,7 +27,7 @@ class UploadImg extends React.Component {
           <div className='row flipInX animated'>
           <div className='col-sm-8'>
             <div className='panel panel-default'>
-              <div className='panel-heading'>Upload Your Image!</div>
+              <div className='panel-heading'>Upload Image!</div>
               <div className='panel-body'>
                 <link href="dropzone.css" rel="stylesheet"/>
                 <form method="post" action="/api/upload" encType ='multipart/form-data' className="dropzone" id="dropzone-example">
@@ -39,11 +39,11 @@ class UploadImg extends React.Component {
               </div>
             </div>
           </div>
-           </div>
+          </div>
         </div>
       );
   }
-
+  /*
   renderAuth() {
 
     if (!this.state.user) {
@@ -68,9 +68,9 @@ class UploadImg extends React.Component {
       }
       else return this.renderPage();
     } else return this.renderPage();
-  }
+  } */
   render() {
-    return this.renderAuth();
+    return this.renderPage();
   }
 }
 
