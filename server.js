@@ -31,8 +31,8 @@ app.use(function(req, res) {
   });
 });
 
-//mongoose.connect('mongodb://192.168.11.100/mongo');
-mongoose.connect('mongodb://localhost/OBM');
+mongoose.connect('mongodb://192.168.11.100/mongo');
+//mongoose.connect('mongodb://localhost/OBM');
 console.log('Success: Connect to mongoDB');
 mongoose.connection.on('error', function() {
   console.info('Error: Could not connect to MongoDB. Did you forget to run `mongod`?');

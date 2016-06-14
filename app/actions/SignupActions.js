@@ -14,9 +14,9 @@ class SignupActions {
     );
   }
 
-  signup(name, email, username, password) {
+  signup(username, password) {
 
-    var data = {"name":name, "email":email, "username":username, "password":password};
+    var data = {"username":username, "password":password};
     console.dir(JSON.stringify(data));
 
     $.ajax({

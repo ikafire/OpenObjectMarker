@@ -8,12 +8,45 @@ class UploadImg extends React.Component {
     this.state = UploadImgStore.getState();
   }
 
+  /* render regular page after login. */
+  renderPage() {
+    return (
+        <div className='container'>
+
+        <h1> Open Object Marker </h1>
+          <ul>
+            <li><a href="/home">Home</a></li>
+            <li><a className="active" href="/upload">Upload</a></li>
+            <li><a href="/label">Label</a></li>
+            <li><a href="/explore">Explore</a></li>
+            <li><a href="/logout">Logout</a></li>
+          </ul>
+
+          <hr></hr>
+
+          <div className='row flipInX animated'>
+            <div className='panel panel-default'>
+              <div className='panel-heading'>Upload Your Image!</div>
+              <div className='panel-body'>
+                <link href="dropzone.css" rel="stylesheet"/>
+                <form method="post" action="/api/upload" encType ='multipart/form-data' className="dropzone" id="dropzone-example">
+                  <div class="fallback">
+                    <input name="file" type="file" multiple />
+                  </div>
+                </form>
+                <script src="dropzone.js"></script>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+  }
+
   renderAuth() {
-    console.log(this.state.user);
+
     if (!this.state.user) {
       this.state.user = cookie.load('username');
-      console.log(this.state.user);
-      if (!this.state.user) {
+      if (this.state.user == 'undefined' | !this.state.user) {
         return (
           <div className='container'>
 
@@ -31,39 +64,9 @@ class UploadImg extends React.Component {
             </div>
           );
       }
-    }
-    return (
-    <div className='container'>
-
-      <h1> Open Object Marker </h1>
-      <ul>
-        <li><a href="/home">Home</a></li>
-        <li><a className="active" href="/upload">Upload</a></li>
-        <li><a href="/label">Label</a></li>
-        <li><a href="/explore">Explore</a></li>
-        <li><a href="/logout">Logout</a></li>
-      </ul>
-
-      <hr></hr>
-
-      <div className='row flipInX animated'>
-          <div className='panel panel-default'>
-            <div className='panel-heading'>Upload Your Image!</div>
-            <div className='panel-body'>
-              <link href="dropzone.css" rel="stylesheet"/>
-              <form method="post" action="/api/upload" encType ='multipart/form-data' className="dropzone" id="dropzone-example">
-              <div class="fallback">
-              <input name="file" type="file" multiple />
-              </div>
-              </form>
-              <script src="dropzone.js"></script>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
+      else return this.renderPage();
+    } else return this.renderPage();
   }
-  
   render() {
     return this.renderAuth();
   }

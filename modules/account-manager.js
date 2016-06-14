@@ -77,8 +77,6 @@ var saltAndHash = function(pass, callback)
 
 var validatePassword = function(plainPass, hashedPass, callback)
 {
-	console.log(plainPass);
-	console.log(hashedPass);
 	var salt = hashedPass.substr(0, 10);
 	var validHash = salt + md5(plainPass + salt);
 	callback(null, hashedPass === validHash);
