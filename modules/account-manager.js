@@ -2,7 +2,7 @@ var crypto 		= require('crypto');
 var moment 		= require('moment');
 var mongoose = require('mongoose');
 
-mongoose.createConnection('mongodb://localhost/Login');
+mongoose.createConnection('mongodb://192.168.11.100/Login');
 
 var loginSchema = new mongoose.Schema({
     username   : String,
