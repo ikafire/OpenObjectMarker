@@ -38,6 +38,7 @@ class Explore extends React.Component {
 
   }
 
+
   renderGallery(){
 
       var images = [];
@@ -57,7 +58,7 @@ class Explore extends React.Component {
 
     for (var i = 0; i < data.length; i++) {
       var option = data[i];
-      options.push(<div ><input id="selectClass" type='checkbox' className='option' value={option}> {option}</input></div>);
+      options.push(<div ><input id="selectClass" type='checkbox' className='class' value={option}> {option}</input></div>);
     }
 
     return options;
@@ -65,18 +66,39 @@ class Explore extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
+    var checkboxes = document.getElementsByClassName("class");
     var successMessage = ExploreActions.exploreByClass();
     var selectClass = document.getElementById("selectClass");
     this.state.data = successMessage;
     this.forceUpdate();
   }
 
+  downloadUrl() {
+    var checkboxes = document.getElementsByClassName("class");
+    
+    var downloadUrl = "/api/DownloadLabels/";
+    var firstAppend = true;
+    for (var i = 0; i < checkboxes.length; i++) {
+      if(checkboxes[i].checked) {
+        if(firstAppend) {
+          downloadUrl += checkboxes[i].value;
+          firstAppend = false;
+        }
+        else downloadUrl += ("," + checkboxes[i].value);
+      }
+    }
+    
+    return downloadUrl;
+  }
   renderDownload() {
 
-    var downloadUrl = "/api/DownloadLabels/" + this.state.selectedValue;
-    console.log(downloadUrl);
+    var checkboxes = document.getElementsByClassName("class");
+    console.log(checkboxes);
+    
+    // var downloadUrl = "/api/DownloadLabels/" + this.state.selectedValue;
+    // console.log(downloadUrl);
     return (
-      <form method="get" action={downloadUrl}>
+      <form method="get" action={this.downloadUrl()}>
         <button type="submit" className='btn btn-primary'>Download</button>
       </form>
     );
@@ -84,7 +106,6 @@ class Explore extends React.Component {
   
   /* render regular page after login. */
   renderPage() {
-    console.log('hello');
     return (
       <div className='container'>
       
@@ -122,7 +143,6 @@ class Explore extends React.Component {
     console.log(this.state.user);
     if (this.state.user == undefined) {
       this.state.user = cookie.load('username');
-      console.log(this.state.user == 'undefined' | !this.state.user);
       if (this.state.user == 'undefined' | !this.state.user) {
         console.log('??');
         return (
