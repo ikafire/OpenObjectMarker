@@ -4,8 +4,6 @@ import SignupActions from '../actions/SignupActions';
 class SignupStore {
   constructor() {
     this.bindActions(SignupActions);
-    this.name = '';
-    this.email = '';
     this.username = '';
     this.password = '';
     this.signupValidationState = '';

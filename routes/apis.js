@@ -115,14 +115,15 @@ router.route('/login')
 /* Signup process */
 router.route('/signup')
 .post(jsonParser, function(req, res) {
-
     AM.addNewAccount({
-			user : req.body.username,
-            pass : req.body.password
+			username : req.body.username,
+            password : req.body.password
 		}, function(e){
 			if (e){
+                console.log(e);
 				res.status(400).send(e);
 			}	else{
+                console.log('ok');
 				res.status(200).send('ok');
 			}
 		});
