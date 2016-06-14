@@ -57,7 +57,7 @@ class Explore extends React.Component {
 
     for (var i = 0; i < data.length; i++) {
       var option = data[i];
-      options.push(<option value={option}>{option}</option>);
+      options.push(<div ><input id="selectClass" type='checkbox' className='option' value={option}> {option}</input></div>);
     }
 
     return options;
@@ -69,14 +69,6 @@ class Explore extends React.Component {
     var selectClass = document.getElementById("selectClass");
     this.state.data = successMessage;
     this.forceUpdate();
-  }
-
-  handleSelect(event) {
-    event.preventDefault();
-    var selectClass = document.getElementById("selectClass");
-    this.state.selectedValue = selectClass.options[selectClass.selectedIndex].value;
-    this.forceUpdate();
-    console.log(this.state.selectedValue);
   }
 
   renderDownload() {
@@ -92,40 +84,37 @@ class Explore extends React.Component {
   
   /* render regular page after login. */
   renderPage() {
+    console.log('hello');
     return (
       <div className='container'>
       
-          <h1> Open Object Marker </h1>
-          <ul>
-            <li><a href="/home">Home</a></li>
-            <li><a href="/upload">Upload</a></li>
-            <li><a href="/label">Label</a></li>
-            <li><a className="active" href="/explore">Explore</a></li>
-            <li><a href="/logout">Logout</a></li>
-          </ul>
+        <h1> Open Object Marker </h1>
+        <ul>
+          <li><a href="/home">Home</a></li>
+          <li><a href="/upload">Upload</a></li>
+          <li><a href="/label">Label</a></li>
+          <li><a className="active" href="/explore">Explore</a></li>
+          <li><a href="/logout">Logout</a></li>
+        </ul>
         
-          <hr></hr>
+        <hr></hr>
       
-          <div className='row flipInX animated'>
-            <div className='panel panel-default'>
-              <div className='panel-heading'>Explore</div>
-              <div className='panel-body'>
-              <form onSubmit={this.handleSubmit.bind(this)}>
-                <div >
-                  <select id="selectClass"  onChange={this.handleSelect.bind(this)}>
-                    {this.renderClass()}
-                  </select>
-                </div>
-                <button type='submit' className='btn btn-primary' onclick={this.handleSubmit.bind(this)}>Submit</button>
-              </form>
-              {this.renderDownload()}
-              </div>
-              <div className='panel-body'>
-                {this.renderGallery()}
-              </div>
+        <div className='row flipInX animated'>
+          <div className='panel panel-default'>
+            <div className='panel-heading'>Explore</div>
+            <div className='panel-body'>
+            <form onSubmit={this.handleSubmit.bind(this)}>
+              {this.renderClass()}
+              <button type='submit' className='btn btn-primary' onclick={this.handleSubmit.bind(this)}>Submit</button>
+            </form>
+            {this.renderDownload()}
+            </div>
+            <div className='panel-body'>
+              {this.renderGallery()}
             </div>
           </div>
         </div>
+      </div>
       );
   }
   
@@ -133,7 +122,9 @@ class Explore extends React.Component {
     console.log(this.state.user);
     if (this.state.user == undefined) {
       this.state.user = cookie.load('username');
+      console.log(this.state.user == 'undefined' | !this.state.user);
       if (this.state.user == 'undefined' | !this.state.user) {
+        console.log('??');
         return (
           <div className='container'>
 
@@ -153,8 +144,8 @@ class Explore extends React.Component {
       } else return this.renderPage();
     } else return this.renderPage();
   }
-  render() {
 
+  render() {
     return this.renderAuth();
   }
 }
