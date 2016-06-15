@@ -30,14 +30,11 @@ class Explore extends React.Component {
 
     var ctxs = document.getElementsByClassName("drawCanvas");
     var data = this.state.data;
-    console.log(ctxs);
-    
+
     for (var i = 0; i < 5; i++) {
       if (data[i]) {
-        console.log(data[i]);
         const labels = data[i].labels;
         const ctx = ctxs[i].getContext('2d');
-        console.log(ctx);
         ctx.height = 345;
         ctx.width = 345;
         var topMap = new Image();
@@ -48,7 +45,6 @@ class Explore extends React.Component {
           var label = labels[j];
           ctx.strokeStyle="red";
           ctx.rect(label.startX / 2, label.startY / 2, label.w / 2, label.h / 2);
-          console.log(label.startX, label.startY, label.w, label.h);
           ctx.stroke();
         }
       } else break;
@@ -73,7 +69,7 @@ class Explore extends React.Component {
 
     for (var i = 0; i < data.length; i++) {
       var option = data[i];
-      options.push(<label ><input id="selectClass" type='checkbox' className='option' value={option}> {option}</input></label>);
+      options.push(<label ><input id="selectClass" type='checkbox' className='class' value={option}> {option}</input></label>);
     }
 
     return options;
@@ -85,6 +81,7 @@ class Explore extends React.Component {
     var successMessage = ExploreActions.exploreByClass();
     var selectClass = document.getElementById("selectClass");
     this.state.data = successMessage;
+
     this.updateCanvas();
     this.forceUpdate();
   }
@@ -106,10 +103,9 @@ class Explore extends React.Component {
     
     return downloadUrl;
   }
-  renderDownload() {
 
+  renderDownload() {
     var checkboxes = document.getElementsByClassName("class");
-    console.log(checkboxes);
 
     return (
       <form method="get" action={this.downloadUrl()}>
