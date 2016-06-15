@@ -177,7 +177,7 @@ class Label extends React.Component {
           <div className='panel-heading'>Label</div>
           <div className='panel-body'>
             <div>
-              <canvas id="drawCanvas" height={690} width={690}/>
+              <canvas id="labelCanvas" height={690} width={690}/>
               <select id="selectClass" onChange={this.handleSelect.bind(this)}>
                 {this.renderClass()}
               </select>
