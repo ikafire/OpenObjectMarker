@@ -25,9 +25,19 @@ class Label extends React.Component {
   }
 
   mouseDown(e) {
-    this.state.rect.startX = e.layerX - this.state.offsetLeft;
-    this.state.rect.startY = e.layerY - this.state.offsetTop;
+    // Use mozMovementX to detect the browser
+    if (e.mozMovementX != undefined) {
+      this.state.rect.startX = e.layerX - this.state.offsetLeft;
+      this.state.rect.startY = e.layerY - this.state.offsetTop;
+    } else {
+      this.state.rect.startX = e.pageX - this.state.offsetLeft;
+      this.state.rect.startY = e.pageY - this.state.offsetTop;
+    }
+
     this.state.drag = true;
+    console.log(e);
+    console.log(this.state.offsetLeft);
+    console.log(this.state.offsetTop);
   }
 
   mouseUp(e) {
@@ -44,12 +54,18 @@ class Label extends React.Component {
 
       this.state.Labels.push(storeLabel);
       this.state.drag = false;
-    }
+  }
 
   mouseMove(e) {
     if (this.state.drag) {
-      this.state.rect.w = (e.layerX - this.state.offsetLeft) - this.state.rect.startX;
-      this.state.rect.h = (e.layerY - this.state.offsetTop) - this.state.rect.startY;
+      if (e.mozMovementX != undefined) {
+        this.state.rect.w = (e.layerX - this.state.offsetLeft) - this.state.rect.startX;
+        this.state.rect.h = (e.layerY - this.state.offsetTop) - this.state.rect.startY;
+      } else {
+        this.state.rect.w = (e.pageX - this.state.offsetLeft) - this.state.rect.startX;
+        this.state.rect.h = (e.pageY - this.state.offsetTop) - this.state.rect.startY;
+      }
+
       this.drawRec();
     }
   }
