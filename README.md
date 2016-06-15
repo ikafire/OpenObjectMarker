@@ -37,3 +37,10 @@ Open a new terminal and start the server:
     npm start
 
 Open your browser and access http://localhost:3000/home
+
+New:
+sudo npm install react-cookie
+sudo npm install moment
+
+To use login function:
+install mongoDB
