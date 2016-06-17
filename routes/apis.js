@@ -21,6 +21,25 @@ var storage = multer.diskStorage({
 
 var upload = multer({storage: storage}).single('file');
 
+function parseLabels(labels, cls) {
+    var ret = [];
+    for(var i = 0; i < labels.length; i++) {
+        var perImg = [];
+        var nowImg = labels[i].labels;
+        for (var j = 0; j < nowImg.length; j++) {
+            if (cls.indexOf(nowImg[j].class) != -1) {
+                perImg.push(nowImg[j]);
+            }
+        }
+        if(perImg.length > 0) {
+            var img = labels[i];
+            img.labels = perImg
+            ret.push(img);
+        }
+    }
+    return ret;
+}
+
 router.route('/upload')
 .post(upload, function(req, res) {
   // find the image_id in the database
@@ -49,6 +68,7 @@ router.route('/upload')
   });
 });
 
+/* Get all classes labels */
 router.route('/explore')
 .get(function(req, res) {
     Label.find(function(err, label) {
@@ -56,6 +76,18 @@ router.route('/explore')
             res.send(err);
         res.json(label);
     })
+});
+
+/* Get Labels by class */
+router.route('/explore/:class')
+.get(jsonParser, function(req, res) {
+    var cls = (req.params.class).split(',');
+    Label.find(function(err, label) {
+      if(err)
+        res.send(err);
+      var parsedLabels  = parseLabels(label, cls);
+      res.json(parsedLabels);
+  });
 });
 
 /* Save the labels */
@@ -129,17 +161,16 @@ router.route('/signup')
 		});
 });
 
-/* Download Labels process */
+/* Download Labels by class process */
 router.route('/DownloadLabels/:class')
 .get(jsonParser, function(req, res) {
-
-    var cls = req.params;
-    console.log(cls);
+    var cls = (req.params.class).split(',');
     Label.find(function(err, label) {
       if(err)
         res.send(err);
-
-      fs.writeFileSync("./tmpLabels.json", JSON.stringify(label));
+      var parsedLabels  = parseLabels(label, cls);
+      console.log(parsedLabels);
+      fs.writeFileSync("./tmpLabels.json", JSON.stringify(parsedLabels));
       var file = './tmpLabels.json';
       res.download(file);
   });
@@ -148,7 +179,6 @@ router.route('/DownloadLabels/:class')
 /* Download all Labels process */
 router.route('/DownloadLabels/')
 .get(jsonParser, function(req, res) {
-
     var cls = req.params;
     console.log(cls);
     Label.find(function(err, label) {

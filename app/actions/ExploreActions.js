@@ -10,10 +10,23 @@ class ExploreActions {
   }
 
   /*  Call the RESTful GET Api to get the images path in mongodb. */
-  exploreByClass() {
+  exploreByClass(cls) {
+
+    var exploreUrl = "/api/explore/";
+    var firstAppend = true;
+    for (var i = 0; i < cls.length; i++) {
+      if(cls[i].checked) {
+        if(firstAppend) {
+          exploreUrl += cls[i].value;
+          firstAppend = false;
+        }
+        else exploreUrl += ("," + cls[i].value);
+      }
+    }
+    console.log(exploreUrl);
     var jqXHR = $.ajax({
       type: 'GET',
-      url: '/api/explore',
+      url: exploreUrl,
       contentType: "application/json",
       async: false,
     });

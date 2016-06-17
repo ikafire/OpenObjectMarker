@@ -31,23 +31,25 @@ class Explore extends React.Component {
     var ctxs = document.getElementsByClassName("drawCanvas");
     var data = this.state.data;
 
-    for (var i = 0; i < 5; i++) {
-      if (data[i]) {
+    for (var i = 0; i < data.length; i++) {
         const labels = data[i].labels;
         const ctx = ctxs[i].getContext('2d');
+        
         ctx.height = 345;
         ctx.width = 345;
+        ctx.fillStyle="white";
+    	  ctx.fillRect(0,0,345,345);
         var topMap = new Image();
+        ctx.beginPath();
         topMap.src = 'uploads/' + data[i].image_id;
         ctx.drawImage(topMap, 0, 0 , 345, 345);
-
+        ctx.stroke();
         for (var j = 0; j < labels.length; j++) {
           var label = labels[j];
           ctx.strokeStyle="red";
           ctx.rect(label.startX / 2, label.startY / 2, label.w / 2, label.h / 2);
           ctx.stroke();
         }
-      } else break;
     }
 
   }
@@ -78,8 +80,8 @@ class Explore extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     var checkboxes = document.getElementsByClassName("class");
-    var successMessage = ExploreActions.exploreByClass();
     var selectClass = document.getElementById("selectClass");
+    var successMessage = ExploreActions.exploreByClass(checkboxes);
     this.state.data = successMessage;
 
     this.updateCanvas();
