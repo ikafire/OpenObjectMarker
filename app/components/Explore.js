@@ -32,37 +32,35 @@ class Explore extends React.Component {
     var data = this.state.data;
 
     for (var i = 0; i < data.length; i++) {
-        const labels = data[i].labels;
-        const ctx = ctxs[i].getContext('2d');
+      const labels = data[i].labels;
+      const ctx = ctxs[i].getContext('2d');
         
-        ctx.height = 345;
-        ctx.width = 345;
-        ctx.fillStyle="white";
-    	  ctx.fillRect(0,0,345,345);
-        var topMap = new Image();
-        ctx.beginPath();
-        topMap.src = 'uploads/' + data[i].image_id;
-        ctx.drawImage(topMap, 0, 0 , 345, 345);
+      ctx.height = 345;
+      ctx.width = 345;
+      ctx.fillStyle="white";
+    	ctx.fillRect(0,0,345,345);
+      var topMap = new Image();
+      ctx.beginPath();
+      topMap.src = 'uploads/' + data[i].image_id;
+      ctx.drawImage(topMap, 0, 0 , 345, 345);
+      ctx.stroke();
+      for (var j = 0; j < labels.length; j++) {
+        var label = labels[j];
+        ctx.strokeStyle="red";
+        ctx.rect(label.startX / 2, label.startY / 2, label.w / 2, label.h / 2);
         ctx.stroke();
-        for (var j = 0; j < labels.length; j++) {
-          var label = labels[j];
-          ctx.strokeStyle="red";
-          ctx.rect(label.startX / 2, label.startY / 2, label.w / 2, label.h / 2);
-          ctx.stroke();
-        }
+      }
     }
-
   }
 
   renderGallery(){
+    var images = [];
+    var data = this.state.data;
 
-      var images = [];
-      var data = this.state.data;
-
-      for (var i = 0; i < 5; i++) {
-        images.push(<canvas id="drawCanvas" className="drawCanvas" height={345} width={345}/>);
-      }
-      return images;
+    for (var i = 0; i < 5; i++) {
+      images.push(<canvas id="drawCanvas" className="drawCanvas" height={345} width={345}/>);
+    }
+    return images;
   }
 
   renderClass() {
@@ -80,7 +78,6 @@ class Explore extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     var checkboxes = document.getElementsByClassName("class");
-    var selectClass = document.getElementById("selectClass");
     var successMessage = ExploreActions.exploreByClass(checkboxes);
     this.state.data = successMessage;
 
@@ -107,8 +104,6 @@ class Explore extends React.Component {
   }
 
   renderDownload() {
-    var checkboxes = document.getElementsByClassName("class");
-
     return (
       <form method="get" action={this.downloadUrl()}>
         <button type="submit" className='btn btn-primary'>Download Labels</button>

@@ -84,6 +84,8 @@ class Label extends React.Component {
     for (var i = 0; i < this.state.Labels.length; i++) {
       this.state.ctx.strokeRect((this.state.Labels)[i].startX, (this.state.Labels)[i].startY, (this.state.Labels)[i].w, (this.state.Labels)[i].h);
     }
+
+    // Current drawing label
     this.state.ctx.strokeRect(this.state.rect.startX, this.state.rect.startY, this.state.rect.w, this.state.rect.h);
 
   }
@@ -111,7 +113,6 @@ class Label extends React.Component {
   }
 
   renderGallery(){
-
     var images = [];
     var data = this.state.data;
 
@@ -150,7 +151,6 @@ class Label extends React.Component {
     this.forceUpdate();
     var selectClass = document.getElementById("selectClass");
     this.state.selectedValue = selectClass.options[selectClass.selectedIndex].value;
-    console.log(this.state.selectedValue);
   }
   
   saveLabels(event) {
@@ -192,8 +192,8 @@ class Label extends React.Component {
             </div>
           </div>
       </div>
-      );
-    }
+    );
+  }
 
   renderAuth() {
     if (!this.state.user) {
