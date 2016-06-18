@@ -27,8 +27,8 @@ class Label extends React.Component {
   mouseDown(e) {
     // Use mozMovementX to detect the browser
     if (e.mozMovementX != undefined) {
-      this.state.rect.startX = e.layerX - this.state.offsetLeft;
-      this.state.rect.startY = e.layerY - this.state.offsetTop;
+      this.state.rect.startX = e.layerX;
+      this.state.rect.startY = e.layerY;
     } else {
       this.state.rect.startX = e.pageX - this.state.offsetLeft;
       this.state.rect.startY = e.pageY - this.state.offsetTop;
@@ -59,8 +59,8 @@ class Label extends React.Component {
   mouseMove(e) {
     if (this.state.drag) {
       if (e.mozMovementX != undefined) {
-        this.state.rect.w = (e.layerX - this.state.offsetLeft) - this.state.rect.startX;
-        this.state.rect.h = (e.layerY - this.state.offsetTop) - this.state.rect.startY;
+        this.state.rect.w = (e.layerX) - this.state.rect.startX;
+        this.state.rect.h = (e.layerY) - this.state.rect.startY;
       } else {
         this.state.rect.w = (e.pageX - this.state.offsetLeft) - this.state.rect.startX;
         this.state.rect.h = (e.pageY - this.state.offsetTop) - this.state.rect.startY;
@@ -93,9 +93,10 @@ class Label extends React.Component {
     this.state.Labels = [];
     this.state.LabelingImg = img.target.src;
     //this.forceUpdate();
-    var c = document.getElementById("drawCanvas");
+    var c = document.getElementById("labelCanvas");
     this.state.offsetLeft = c.offsetLeft;
     this.state.offsetTop = c.offsetTop;
+    console.log('click');
     c.addEventListener("mousedown", this.mouseDown.bind(this), false);
     c.addEventListener("mouseup", this.mouseUp.bind(this), false);
     c.addEventListener("mousemove", this.mouseMove.bind(this), false);
