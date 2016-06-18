@@ -106,7 +106,7 @@ class Explore extends React.Component {
   renderDownload() {
     return (
       <form method="get" action={this.downloadUrl()}>
-        <button type="submit" className='btn btn-primary'>Download Labels</button>
+        <button id="rightButton" type="submit" className='btn btn-primary'>Download Labels</button>
       </form>
     );
   }
@@ -131,19 +131,19 @@ class Explore extends React.Component {
           <div className='panel panel-default'>
             <div className='panel-heading'>Explore</div>
             <div className='panel-body'>
-            <form onSubmit={this.handleSubmit.bind(this)}>
-              <div >
-                {this.renderClass()}
+              <form onSubmit={this.handleSubmit.bind(this)}>
+                <div >
+                  {this.renderClass()}
+                </div>
+                <button type='submit' className='btn btn-primary' onclick={this.handleSubmit.bind(this)}>Submit</button>
+              </form>
+              <div className='panel-body'>
+                {this.renderGallery()}
               </div>
-              <button type='submit' className='btn btn-primary' onclick={this.handleSubmit.bind(this)}>Submit</button>
-            </form>
-            {this.renderDownload()}
-            <form method="get" action="/api/DownloadImgs">
-              <button type="submit" className='btn btn-primary'>Download Images</button>
-            </form>
-            </div>
-            <div className='panel-body'>
-              {this.renderGallery()}
+              {this.renderDownload()}
+              <form method="get" action="/api/DownloadImgs">
+                <button id="rightButton" type="submit" className='btn btn-primary'>Download Images</button>
+              </form>
             </div>
           </div>
         </div>
