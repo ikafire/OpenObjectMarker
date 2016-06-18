@@ -111,7 +111,7 @@ class Explore extends React.Component {
 
     return (
       <form method="get" action={this.downloadUrl()}>
-        <button type="submit" className='btn btn-primary'>Download</button>
+        <button type="submit" className='btn btn-primary'>Download Labels</button>
       </form>
     );
   }
@@ -143,6 +143,9 @@ class Explore extends React.Component {
               <button type='submit' className='btn btn-primary' onclick={this.handleSubmit.bind(this)}>Submit</button>
             </form>
             {this.renderDownload()}
+            <form method="get" action="/api/DownloadImgs">
+              <button type="submit" className='btn btn-primary'>Download Images</button>
+            </form>
             </div>
             <div className='panel-body'>
               {this.renderGallery()}

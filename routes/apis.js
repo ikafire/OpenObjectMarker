@@ -8,6 +8,7 @@ var fs = require('fs');
 var multer  = require('multer');
 var AM = require('../modules/account-manager');
 var mongoose = require('mongoose');
+var zip = require('express-zip');
 
 var storage = multer.diskStorage({
   destination: function (request, file, callback) {
@@ -188,6 +189,23 @@ router.route('/DownloadLabels/')
       fs.writeFileSync("./tmpLabels.json", JSON.stringify(label));
       var file = './tmpLabels.json';
       res.download(file);
+  });
+});
+
+router.route('/DownloadImgs')
+.get(jsonParser, function(req, res) {
+    var cls = req.params;
+    console.log(cls);
+    Label.find(function(err, label) {
+      if(err)
+        res.send(err);
+
+      var files = [];
+      for (var i = 0; i < label.length; i++) {
+          files.push({path: __dirname + "/../public/uploads/" + label[i].image_id, name: label[i].image_id});
+      }
+      console.log(files);
+      res.zip(files);
   });
 });
 
