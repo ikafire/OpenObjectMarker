@@ -28,7 +28,10 @@ class Signup extends React.Component {
     var password = this.state.password.trim();
     
     SignupActions.signup(username, password);
-
+    var parser = document.createElement("a");
+    parser.href = window.location.href;
+    var login = parser.origin + '/login';
+    window.location.assign(login);
   }
   
   render() {

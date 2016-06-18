@@ -8,6 +8,7 @@ class Login extends React.Component {
     super(props);
     this.state = LoginStore.getState();
     this.onChange = this.onChange.bind(this);
+    this.validLogin = true;
   }
 
   componentDidMount() {
@@ -30,7 +31,22 @@ class Login extends React.Component {
     var loginData =  LoginActions.login(username, password);
 
     cookie.save('username', loginData, { path: '/' });
-    window.location.assign('http://localhost:3000/home');
+    
+    if(cookie.load('username') != 'undefined') {
+      var parser = document.createElement("a");
+      parser.href = window.location.href;
+      var home = parser.origin + '/home';
+      window.location.assign(home);
+    }
+    else {
+      this.validLogin = false;
+      this.forceUpdate();
+    }
+  }
+
+  renderValid(event) {
+    if (!this.validLogin)
+      return (<h6 > **ERROR** - Invalid username or password! </h6>);
   }
 
   renderHome() {
@@ -91,6 +107,7 @@ class Login extends React.Component {
                   <button type='button' className='btn btn-primary'>Signup</button>
                 </a>
               </form>
+              {this.renderValid()}
               </div>
             </div>
           </div>
