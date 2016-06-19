@@ -6,7 +6,7 @@ class ExploreStore {
     this.bindActions(ExploreActions);
     this.explore = '';
     this.data = '';
-    this.class = ['car', 'person'];
+    this.class = ['car', 'person', 'bike', 'motorcycle'];
     this.selectedValue = 'car';
   }
 }

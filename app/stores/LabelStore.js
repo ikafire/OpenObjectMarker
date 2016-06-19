@@ -14,7 +14,7 @@ class LabelStore {
     this.offsetLeft = 0;
     this.offsetTop = 0;
     this.ctx = "";
-    this.class = ['car', 'person'];
+    this.class = ['car', 'person', 'bike', 'motorcycle'];
     this.selectedValue = 'car';
     this.user = '';
   }
