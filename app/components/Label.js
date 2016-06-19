@@ -46,11 +46,6 @@ class Label extends React.Component {
       // we create a new object to push here.
       var storeLabel =  {startX: this.state.rect.startX, startY:this.state.rect.startY,
                         w: this.state.rect.w, h: this.state.rect.h, class: this.state.selectedValue};
-      /*storeLabel.startX = this.state.rect.startX;
-      storeLabel.startY = this.state.rect.startY;
-      storeLabel.w = this.state.rect.w;
-      storeLabel.h = this.state.rect.h;
-      storeLabel.class = this.state.selectedValue;*/
 
       this.state.Labels.push(storeLabel);
       this.state.drag = false;
@@ -70,6 +65,29 @@ class Label extends React.Component {
     }
   }
 
+  chooseColor(cls) {
+    var color = '';
+    switch(cls) {
+      case 'car':
+        color = 'red';
+        break;
+      case 'person':
+        color = 'blue';
+        break;
+      case 'bike':
+        color = 'green';
+        break;
+      case 'motorcycle':
+        color = 'yellow';
+        break;
+      default:
+        color = 'white';
+        break;
+    }
+    console.log(color);
+    return color;
+  }
+
   drawRec() {
 
     var img = new Image();
@@ -82,10 +100,12 @@ class Label extends React.Component {
     this.state.ctx.drawImage(img, 0 , 0, 690, 690);
 
     for (var i = 0; i < this.state.Labels.length; i++) {
+      this.state.ctx.strokeStyle = (this.chooseColor((this.state.Labels)[i].class));
       this.state.ctx.strokeRect((this.state.Labels)[i].startX, (this.state.Labels)[i].startY, (this.state.Labels)[i].w, (this.state.Labels)[i].h);
     }
 
     // Current drawing label
+    this.state.ctx.strokeStyle = (this.chooseColor(this.state.selectedValue));
     this.state.ctx.strokeRect(this.state.rect.startX, this.state.rect.startY, this.state.rect.w, this.state.rect.h);
 
   }

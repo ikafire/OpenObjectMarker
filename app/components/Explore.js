@@ -26,10 +26,42 @@ class Explore extends React.Component {
     this.setState(state);
   }
   
+  chooseColor(cls) {
+    var color = '';
+    switch(cls) {
+      case 'car':
+        color = 'red';
+        break;
+      case 'person':
+        color = 'blue';
+        break;
+      case 'bike':
+        color = 'green';
+        break;
+      case 'motorcycle':
+        color = 'yellow';
+        break;
+      default:
+        color = 'white';
+        break;
+    }
+    console.log(color);
+    return color;
+  }
+
   updateCanvas() {
 
     var ctxs = document.getElementsByClassName("drawCanvas");
     var data = this.state.data;
+
+    /* Clean all */
+    for (var i = 0; i < 6; i++) {
+      const ctx = ctxs[i].getContext('2d');
+      ctx.height = 345;
+      ctx.width = 345;
+      ctx.fillStyle="white";
+    	ctx.fillRect(0,0,345,345);
+    }
 
     for (var i = 0; i < data.length; i++) {
       const labels = data[i].labels;
@@ -38,7 +70,7 @@ class Explore extends React.Component {
       ctx.height = 345;
       ctx.width = 345;
       ctx.fillStyle="white";
-    	ctx.fillRect(0,0,345,345);
+    	ctx.fillRect(0, 0, 345, 345);
       var topMap = new Image();
       ctx.beginPath();
       topMap.src = 'uploads/' + data[i].image_id;
@@ -46,9 +78,8 @@ class Explore extends React.Component {
       ctx.stroke();
       for (var j = 0; j < labels.length; j++) {
         var label = labels[j];
-        ctx.strokeStyle="red";
-        ctx.rect(label.startX / 2, label.startY / 2, label.w / 2, label.h / 2);
-        ctx.stroke();
+        ctx.strokeStyle = this.chooseColor(label.class);
+        ctx.strokeRect(label.startX / 2, label.startY / 2, label.w / 2, label.h / 2);
       }
     }
   }
@@ -57,7 +88,7 @@ class Explore extends React.Component {
     var images = [];
     var data = this.state.data;
 
-    for (var i = 0; i < 5; i++) {
+    for (var i = 0; i < 6; i++) {
       images.push(<canvas id="drawCanvas" className="drawCanvas" height={345} width={345}/>);
     }
     return images;
