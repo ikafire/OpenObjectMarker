@@ -64,16 +64,18 @@ class Explore extends React.Component {
     }
 
     for (var i = 0; i < data.length; i++) {
-      const labels = data[i].labels;
+      var idx = i + this.state.index * 6;
+      const labels = data[idx].labels;
       const ctx = ctxs[i].getContext('2d');
-        
+      console.log(idx);
+      console.log('uploads/' + data[idx].image_id);
       ctx.height = 345;
       ctx.width = 345;
       ctx.fillStyle="white";
     	ctx.fillRect(0, 0, 345, 345);
       var topMap = new Image();
       ctx.beginPath();
-      topMap.src = 'uploads/' + data[i].image_id;
+      topMap.src = 'uploads/' + data[idx].image_id;
       ctx.drawImage(topMap, 0, 0 , 345, 345);
       ctx.stroke();
       for (var j = 0; j < labels.length; j++) {
@@ -111,9 +113,25 @@ class Explore extends React.Component {
     var checkboxes = document.getElementsByClassName("class");
     var successMessage = ExploreActions.exploreByClass(checkboxes);
     this.state.data = successMessage;
-
+    this.state.index = 0;
     this.updateCanvas();
     this.forceUpdate();
+  }
+
+  handlePrev(event){
+    if(this.state.index <= 0)
+      this.state.index = 0;
+    else {
+      this.state.index -=1;
+      this.updateCanvas();
+    }
+  }
+
+  handleNext(event){
+    if(this.state.index < Math.floor(this.state.data.length / 6)) {
+      this.state.index += 1;
+      this.updateCanvas();
+    }
   }
 
   downloadUrl() {
@@ -171,6 +189,8 @@ class Explore extends React.Component {
               <div className='panel-body'>
                 {this.renderGallery()}
               </div>
+              <button type='submit' className='btn btn-primary' onClick={this.handlePrev.bind(this)}>prev</button>
+              <button type='submit' className='btn btn-primary' onClick={this.handleNext.bind(this)}>next</button>
               {this.renderDownload()}
               <form method="get" action="/api/DownloadImgs">
                 <button id="rightButton" type="submit" className='btn btn-primary'>Download Images</button>

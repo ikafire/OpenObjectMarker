@@ -8,6 +8,7 @@ class ExploreStore {
     this.data = '';
     this.class = ['car', 'person', 'bike', 'motorcycle'];
     this.selectedValue = 'car';
+    this.index = 0;
   }
 }
 
