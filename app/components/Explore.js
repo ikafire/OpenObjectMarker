@@ -191,8 +191,9 @@ class Explore extends React.Component {
               <div className='panel-body'>
                 {this.renderGallery()}
               </div>
-              <button type='submit' className='btn btn-primary' onClick={this.handlePrev.bind(this)}>prev</button>
-              <button type='submit' className='btn btn-primary' onClick={this.handleNext.bind(this)}>next</button>
+              <button id='prevNext' type='submit' className='btn btn-info' onClick={this.handlePrev.bind(this)}>prev</button>
+              <button id='prevNext' type='submit' className='btn btn-info' onClick={this.handleNext.bind(this)}>next</button>
+              <hr></hr>
               {this.renderDownload()}
               <form method="get" action="/api/DownloadImgs">
                 <button id="rightButton" type="submit" className='btn btn-primary'>Download Images</button>
