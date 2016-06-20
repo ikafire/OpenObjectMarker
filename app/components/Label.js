@@ -137,8 +137,12 @@ class Label extends React.Component {
     var data = this.state.data;
 
     for (var i = 0; i < data.length; i++) {
-      var img = "uploads/" + data[i].image_id;
-      images.push(<img src={img}  width={345} height={345} onClick={this.updateCanvas.bind(this)}/>);
+      console.log(data[i].image_id);
+      console.log(data[i].labels[0]);
+      if (data[i].labels[0] == "") {
+        var img = "uploads/" + data[i].image_id;
+        images.push(<img src={img}  width={345} height={345} onClick={this.updateCanvas.bind(this)}/>);
+      }
     }
 
     return images;
