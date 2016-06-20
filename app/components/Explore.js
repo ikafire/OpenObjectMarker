@@ -76,6 +76,10 @@ class Explore extends React.Component {
       var topMap = new Image();
       ctx.beginPath();
       topMap.src = 'uploads/' + data[idx].image_id;
+
+      // Delay for loading the image
+      for(var j = 0; j < 1000000; j++) {}
+
       ctx.drawImage(topMap, 0, 0 , 345, 345);
       ctx.stroke();
       for (var j = 0; j < labels.length; j++) {
