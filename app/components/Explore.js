@@ -67,8 +67,6 @@ class Explore extends React.Component {
       var idx = i + this.state.index * 6;
       const labels = data[idx].labels;
       const ctx = ctxs[i].getContext('2d');
-      console.log(idx);
-      console.log('uploads/' + data[idx].image_id);
       ctx.height = 345;
       ctx.width = 345;
       ctx.fillStyle="white";
@@ -76,12 +74,12 @@ class Explore extends React.Component {
       var topMap = new Image();
       ctx.beginPath();
       topMap.src = 'uploads/' + data[idx].image_id;
-
-      // Delay for loading the image
-      for(var j = 0; j < 1000000; j++) {}
-
       ctx.drawImage(topMap, 0, 0 , 345, 345);
       ctx.stroke();
+
+      // Delay for loading the image
+      for (var j = 0; j < 1000000; j++) {}
+
       for (var j = 0; j < labels.length; j++) {
         var label = labels[j];
         ctx.strokeStyle = this.chooseColor(label.class);
@@ -127,15 +125,15 @@ class Explore extends React.Component {
       this.state.index = 0;
     else {
       this.state.index -=1;
-      this.updateCanvas();
     }
+    this.updateCanvas();
   }
 
   handleNext(event){
     if(this.state.index < Math.floor(this.state.data.length / 6)) {
       this.state.index += 1;
-      this.updateCanvas();
     }
+    this.updateCanvas();
   }
 
   downloadUrl() {
